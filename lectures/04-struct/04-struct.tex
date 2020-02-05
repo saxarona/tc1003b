@@ -1,0 +1,382 @@
+\documentclass[spanish, c]{beamer}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[spanish, mexico]{babel}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{ragged2e}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+
+\renewcommand{\indent}{\hspace*{2em}}
+
+% \usepackage{tikz}
+
+% \usetikzlibrary{fit, shapes, arrows}
+
+% \usepackage{courier}
+% \usepackage{subfigure}
+% \usepackage{enumerate}
+% \usepackage{algorithmic}
+% \usepackage{algorithm}
+
+% \usepackage{listings}
+% \usepackage{lstlinebgrd}
+
+\usetheme{Boadilla}
+\usefonttheme[onlymath]{serif}
+
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-editor]!#1!}
+\newcommand\blfootnote[1]{%
+\begingroup
+\renewcommand\thefootnote{}\footnote{#1}%
+\addtocounter{footnote}{-1}%
+\endgroup
+}
+
+\lstset
+{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = left,
+    frame = tb,
+}
+
+\lstdefinestyle{output}
+{
+    language = {},
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = none,
+    showtabs = false,
+   	showstringspaces = false,
+}
+
+% Sets the templates
+\definecolor{navyblue}{RGB}{0, 0, 128}
+\definecolor{crimson}{RGB}{128, 16, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamercolor{title}{fg=navyblue, bg=white}
+\setbeamercolor{frametitle}{fg=navyblue, bg=white}
+\setbeamercolor{structure}{fg=navyblue}
+\setbeamercolor{button}{fg=white,bg=navyblue}
+
+\setbeamercovered{transparent}
+
+\title{Datos y Matrices}
+\subtitle{Modelación de la ingeniería a través de la matemática computacional \\ (TC1003B)}
+\author{
+    \texorpdfstring{
+        \begin{center}
+            M.C. Xavier Sánchez Díaz \\
+            \href{mailto:sax@tec.mx}{\texttt{sax@tec.mx}}
+        \end{center}
+    }
+    {M.C. Xavier Sánchez Díaz}
+}
+
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../img/logo}}
+\date{}
+
+\begin{document}
+
+\setlength{\rightskip}{0pt}
+
+\begin{frame}[plain]
+    \titlepage        
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Datos y operaciones}
+
+\begin{frame}{Tipos de datos}{Datos y operaciones}
+    
+   Existen distintos \alert{tipos de datos} con los que podemos trabajar en una computadora: \pause
+
+    \bigskip
+
+    \begin{itemize}[<+->]
+        \item Números enteros (\textit{integer numbers})
+        \item Números decimales (\textit{floating point numbers})
+        \item Cadenas de caracteres alfanuméricos (\textit{strings})
+    \end{itemize}
+
+    \bigskip
+    
+    En este curso sólo nos preocuparemos por números. \pause
+
+    Cuando \textbf{operamos} con estos datos, generamos nueva información que podríamos necesitar en el futuro.
+
+\end{frame}
+
+\begin{frame}{Datos como resultados}{Datos y operaciones}
+    Antes de usar la computadora o la calculadora para hacer cálculos, solíamos hacer las operaciones a mano.
+    
+    Por ejemplo, si queremos calcular $1270 \times 35$, una manera de hacerlo podría ser\dots
+
+\end{frame}
+
+\begin{frame}{Datos como resultados}{Datos y operaciones}
+    \begin{align*}
+        1270 \times 35 & = \\ \pause
+        & = (1200 + 70) \times (7)(5) \\ \pause
+        & = (\alert<4>{12})(\alert<5,6>{7})(\alert<4>{5})(\alert<7>{100}) + (\alert<8>{7})(\alert<8>{7})(\alert<10>{5})(\alert<9>{10}) \pause
+    \end{align*}
+    \vspace{-2ex}
+    \begin{align*}
+        \alert<4>{12} \times \alert<4>{5} = \alert<5,6>{60} \\
+        \alert<5,6>{60} \times \alert<5,6>{7} = \alert<6>{6} \times \alert<6>{7} \times \alert<6>{10} = \alert<7>{420} \\
+        \alert<7>{420} \times \alert<7>{100} = \alert<11>{42000} \\[1.5ex]
+        \alert<8>{7} \times \alert<8>{7} = \alert<9>{49} \\
+        \alert<9>{49} \times \alert<9>{10} = \alert<10>{490} \\
+        \alert<10>{490} \times \alert<10>{5} = \alert<10>{490} \times \alert<10>{10 / 2} = \alert<11>{2450}\\[1.5ex]
+        \alert<11>{42000} + \alert<11>{2450} = 44450 \quad \square
+    \end{align*}
+\end{frame}
+
+\begin{frame}{Datos como resultados}{Datos y operaciones}    
+    La operación completa se hace poco a poco, y por tanto necesitamos ``recordar'' ciertos pasos intermedios que ya tenemos calculados. \pause
+
+    \bigskip
+    
+    Así como nosotros tenemos que tener en claro cuáles son esos pasos intermedios, la computadora debe saber \textit{dónde está} la información que tiene que leer para trabajar y hacer cálculos más elaborados. \pause
+
+    \bigskip
+
+    Para eso, podemos usar las estructuras de datos, para \textbf{ordenarlos} de manera conveniente y poder tener acceso a ellos de manera que se vayan necesitando.
+
+\end{frame}
+
+\section{Estructuras matemáticas}
+
+\begin{frame}{Variables}{Estructuras matemáticas}
+    La forma más simple de guardar \textbf{un solo dato} es usando una \alert{variable}. \pause
+
+    En álgebra, hemos usado estas \textit{variables} para expresar qué hace una función y saber su resultado: \pause
+
+    $$2\alert<5>{y} = 2\alert<4>{x} + 5\alert<6>{z} + 6$$ \pause
+
+    \begin{itemize}
+        \item $\alert<4>{x}$ es una variable que tiene algún valor que no conocemos en este momento
+        \item $\alert<5>{y}$ es otra variable (porque tiene distinto nombre) y tampoco sabemos su valor ahora, pero sabemos cómo calcularla
+        \item $\alert<6>{z}$ es otra variable más (porque tiene otro nombre distinto a los dos anteriores)
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}[t]{Variables}{Estructuras matemáticas}    
+    $$\alert<3>{2y} = 2\alert<2>{x} + 5{z} + 6$$
+
+    \bigskip
+
+    Si ahora le damos valor a $x$ y $z$, por ejemplo, $x = 3$ y $z = 2$ \dots \pause
+
+    \bigskip
+
+    \begin{itemize}
+        \itemsep1.7ex
+        \item $\alert<2>{x}$ guarda el valor de $3$
+        \item $\alert<3>{y}$ guarda \textbf{2 veces} el resultado de $2(3) + 5(2) + 6 = 2(6+10+6) = 44$
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Arreglos}{Estructuras matemáticas}
+    Asumamos que quiero saber las calificaciones de las Tareas 1, 2 y 3 de uno de mis alumnos.
+    Para esto, necesitaría un lugar para guardar esos \textbf{3 datos}: \pause
+
+    \bigskip
+
+    \begin{itemize}[<+->]
+        \item $t_1 = 90$ será la variable para la Tarea 1
+        \item $t_2 = 75$ será la variable para la Tarea 2
+        \item $t_3 = 87$ será la variable para la Tarea 3
+    \end{itemize}
+
+    \bigskip
+
+    Con esta información, ahora contesta:
+
+    \begin{itemize}[<+->]
+        \item ¿Cuál fue la calificación para la Tarea 2?
+        \item ¿Cuál fue el promedio del alumno?
+        \item ¿Cuál es la tarea en la que mejor le fue?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Arreglos}{Estructuras matemáticas}
+    La pregunta ahora es\dots ¿Realmente necesito \textbf{3 variables} para guardar \textbf{3 datos}?
+    Podemos \textit{arreglar} los datos de tal manera que \textbf{su posición} nos aporte algo más: \pause
+
+    $$\mathbf{t} = \langle 90, 75, 87 \rangle$$ \pause
+
+    La \textbf{posición} en esta \textit{lista ordenada} nos indica qué número de tarea fue, y el valor que haya en dicha posición guarda la calificación. Por lo mismo, podemos usar ``una sola variable'' para guardar de manera ordenada la información requerida, y referirnos sólo a la posición deseada:
+
+    $$\mathbf{t}_2 = 75$$
+\end{frame}
+
+\begin{frame}{Vectores}{Estructuras matemáticas}
+    Cuando \textit{arreglamos} los datos para usarlos de manera lineal, estamos creando una \textbf{lista}. \pause
+
+    $$\mathbf{x} = \langle 1, 2, 10, 23, 2, -1, 70, 15\rangle$$
+
+    \begin{itemize}[<+->]
+        \item Usamos negritas para denotar la diferencia entre la variable $x$ que guarda un valor, y la variable $\mathbf{x}$ que guarda \textbf{múltiples} valores
+        \item Usamos \textit{angle brackets} (\textit{cuñas} les dicen en español) para delimitar la lista de sus valores
+        \item A diferencia de un conjunto, el orden de los valores \textbf{sí importa}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Matrices}{Estructuras matemáticas}
+    Supongamos que ahora necesito saber las calificaciones de las tres tareas, pero ahora de \textbf{varios alumnos}.
+
+    Esto significa que ahora necesitamos \textbf{varias listas}, pero en su lugar podemos \textit{arreglar} los datos como \textbf{una secuencia de tareas} (\textit{la tarea 1, la tarea 2\dots}). \pause
+    
+    A su vez, cada una de las tareas tiene una \textbf{secuencia de alumnos} (\textit{el alumno 1, el alumno 2\dots}) \pause
+
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{align*}
+                & alumno_1 \\
+                & alumno_2 \\
+                & alumno_3 \\
+                & alumno_4
+            \end{align*}
+        \end{column}
+
+        \begin{column}{0.5\textwidth}
+            \begin{align*}
+                \begin{bmatrix}
+                    90 & 75 & 87 \\
+                    100 & 100 & 95 \\
+                    90 & 70 & 88 \\
+                    85 & 65 & 50
+                \end{bmatrix}
+            \end{align*}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Matrices}{Estructuras matemáticas}
+    $$A = 
+    \begin{bmatrix}
+        90 & 75 & 87 \\
+        \alert<4>{100} & \alert<4>{100} & \alert<4>{95} \\
+        90 & \alert<5>{70} & 88 \\
+        85 & 65 & 50
+    \end{bmatrix}
+    $$
+
+    \bigskip
+
+    \begin{itemize}[<+->]
+        \item Una \alert{matriz} es una lista de columnas\
+        \item Solemos usar mayúsculas para los nombres de las matrices
+        \item En este caso, $A$ tiene 4 renglones y 3 columnas, es decir que es de $4 \times 3$
+        \item El renglón $\alert<4>{A_2}$ es $\langle 100, 100, 95 \rangle$
+        \item El elemento $\alert<5>{A_{3,2}}$ es $70$
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Matrices}{Estructuras matemáticas}
+    Cuando una matriz es de $1 \times n$ es una matriz \alert{renglón}:
+
+    $$B = \begin{bmatrix} 100 & 95 & 89 & 92 \end{bmatrix}$$ \pause
+
+    Cuando una matriz es de $n \times 1$ es una matriz \alert{columna} o \alert{vector}:
+
+    $$\mathbf{c} =
+    \begin{bmatrix}
+        100 \\ 91 \\ 95 \\ 98 \\ 85
+    \end{bmatrix}$$
+
+\end{frame}
+
+\section{¿Para qué me sirven los vectores y matrices?}
+
+\begin{frame}{Uso de los vectores}{¿Para qué me sirven los vectores y matrices?}
+
+    aa
+
+\end{frame}
+
+\section{Operaciones vectorizadas}
+
+\begin{frame}[fragile]{De uno en uno\dots}{Operaciones vectorizadas}
+    Los \textbf{arreglos} (ya sean vectores o matrices) tienen, por sí solos, una especie de orden.
+    Este orden da pie a pensar en una \textbf{secuencia}, y entonces operar usando \textbf{ciclos} es \textit{natural}:
+
+    \bigskip
+
+    \begin{columns}
+        \begin{column}{0.95\linewidth}
+            \lstinputlisting{onebyone.m}
+        \end{column}
+    \end{columns}
+
+    \bigskip
+
+    ¿Cuál es el resultado de \texttt{r}?
+\end{frame}
+
+
+\begin{frame}[fragile]{\dots o todos a la vez}{Operaciones vectorizadas}
+    Sin embargo, existen ciertas operaciones que están pensadas para operar directamente sobre \textbf{vectores}, y funcionan justo como lo esperaríamos:
+
+    \bigskip
+
+    \begin{columns}
+        \begin{column}{0.95\linewidth}
+            \begin{lstlisting}[title={Command Window}, numbers=none]
+>> x = [1 2 3 4 5];
+>> x + 10
+ans =
+   11  12  13  14  15
+            \end{lstlisting}
+        \end{column}
+    \end{columns}
+
+    \bigskip
+
+    Estas operaciones son conocidas como \alert{operaciones vectorizadas}, y trabajan con \textbf{cada uno} de los valores al mismo tiempo, en lugar de uno por uno.
+\end{frame}
+
+
+% What is control flow
+% why is it important
+% does it exist in math?
+% how to represent it
+% how to represent it in matlab
+% practical cases
+
+% \section*{Referencias}
+
+% \begin{frame}[t]{Referencias}
+    % \nocite{bibID01}
+    % \nocite{bibID02}
+
+    % \bibliographystyle{IEEE}
+    % \bibliography{biblio}
+% \end{frame}
+
+\end{document}

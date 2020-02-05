@@ -1,0 +1,19 @@
+\frametitle{\dots o todos a la vez}\framesubtitle {Operaciones vectorizadas}
+    Sin embargo, existen ciertas operaciones que están pensadas para operar directamente sobre \textbf{vectores}, y funcionan justo como lo esperaríamos:
+
+    \bigskip
+
+    \begin{columns}
+        \begin{column}{0.95\linewidth}
+            \begin{lstlisting}[title={Command Window}, numbers=none]
+>> x = [1 2 3 4 5];
+>> x + 10
+ans =
+   11  12  13  14  15
+            \end{lstlisting}
+        \end{column}
+    \end{columns}
+
+    \bigskip
+
+    Estas operaciones son conocidas como \alert{operaciones vectorizadas}, y trabajan con \textbf{cada uno} de los valores al mismo tiempo, en lugar de uno por uno.
