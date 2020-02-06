@@ -312,11 +312,75 @@
 
 \end{frame}
 
-\section{¿Para qué me sirven los vectores y matrices?}
+\begin{frame}{Matrices}{Estructuras matemáticas}
+    \[%
+        A =
+        \begin{bmatrix}
+        \alert<1-3>{10}            & \only<1,2>{15} \only<3>{0} & \only<1,2>{2} \only<3>{0}  & \only<1,2>{4} \only<3>{0} \\
+        \only<1,3>{-2} \only<2>{0} & \alert<1-3>{8}             & \only<1,2>{20} \only<3>{0} & \only<1,2>{7} \only<3>{0} \\
+        \only<1,3>{1} \only<2>{0}  & \only<1,3>{5} \only<2>{0}  & \alert<1-3>{13}             & \only<1,2>{14} \only<3>{0} \\
+        \only<1,3>{20} \only<2>{0} & \only<1,3>{4} \only<2>{0}  & \only<1,3>{2} \only<2>{0}  & \alert<1-3>{10}
+        \end{bmatrix}
+    \]
 
-\begin{frame}{Uso de los vectores}{¿Para qué me sirven los vectores y matrices?}
+    \begin{itemize}
+        \item La \alert<1>{diagonal principal} hace referencia a cada elemento $a_{ii}$
+        \item Si todo \textbf{abajo} de la diagonal principal es 0, entonces le llamamos \alert<2>{matriz triangular superior}
+        \item Si todo \textbf{arriba} de la diagonal principal es 0, entonces le llamamos \alert<3>{matriz triangular inferior}
+    \end{itemize}
 
-    aa
+\end{frame}
+
+\section{Operaciones matriciales}
+
+\begin{frame}{¿Y qué puedo hacer con las matrices?}{Operaciones matriciales}
+    Podemos \alert{sumar dos matrices} si tienen \textbf{las mismas dimensiones}:
+
+    \[%
+        \begin{bmatrix}
+            1 & 2 & 3 & 4 \\
+            0 & 7 & 2 & 9 \\
+            2 & 2 & 3 & 1
+        \end{bmatrix} +
+        \begin{bmatrix}
+            3 & 7 & 2 & 0 \\
+            7 & -2 & 8 & 5 \\
+            1 & 3 & -8 & 2
+        \end{bmatrix} =
+        \begin{bmatrix}
+            4 & 9 & 5 & 4 \\
+            7 & 5& 10 & 14 \\
+            3 & 5 & -5 & 3
+        \end{bmatrix} \]
+
+\end{frame}
+
+\begin{frame}{Suma de Matrices}{Operaciones matriciales}
+
+    En general \dots
+
+    \bigskip
+
+    \[%
+        \begin{bmatrix}
+            a_{11} & \dots & \dots & a_{1j} \\
+            \vdots & \ddots & \ddots & \vdots \\
+            a_{i1} & \dots & \dots & a_{ij}
+        \end{bmatrix} +
+        \begin{bmatrix}
+            b_{11} & \dots & \dots & b_{1j} \\
+            \vdots & \ddots & \ddots & \vdots \\
+            b_{i1} & \dots & \dots & b_{ij}
+        \end{bmatrix} =  \]
+        
+        \bigskip
+
+        \[
+        \begin{bmatrix}
+            a_{11}  + b_{11} & \dots & \dots & a_{1j}  + b_{1j} \\
+            \vdots & \ddots & \ddots & \vdots \\
+            a_{i1}  + b_{i1} & \dots & \dots & a_{ij}  + b_{ij}
+        \end{bmatrix} \]
 
 \end{frame}
 
