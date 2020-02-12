@@ -1,0 +1,149 @@
+\documentclass[spanish, 10pt]{article}
+
+\usepackage[table, xcdraw]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, mexico]{babel}
+\usepackage{helvet}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{ulem}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage[margin = 3 cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{matlab-prettifier}
+\usepackage{multicol}
+
+\usetikzlibrary{arrows, shapes, trees, calc, decorations.pathreplacing, shapes.misc, positioning, automata}
+
+\setlength\parindent{0pt}
+
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\responserule}{{\large\rule{14 cm}{0.3mm}}}
+\newcommand{\shortresponserule}{{\large\rule{5 cm}{0.3mm}}}
+\newcommand{\veryshortresponserule}{{\large\rule{3 cm}{0.3mm}}}
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-pyglike]!#1!}
+
+
+% Specifications for listing package
+% \lstset{	
+%     basicstyle = \scriptsize\ttfamily,
+%     keywordstyle = \color{blue}\ttfamily,
+%     stringstyle = \color{red}\ttfamily,
+%    	commentstyle = \color{gray}\ttfamily,
+%    	tabsize = 3,
+%    	breaklines = true,
+%    	stepnumber = 1,
+%    	showtabs = false,
+%    	showstringspaces = false,
+%    	frame = none
+% }
+
+% Commands for true/false questions
+% ----------------------------------------------------------------
+\newcommand{\question}[1]{%
+	\noindent
+	\begin{minipage}[t]{0.15\linewidth}
+	\centering		
+		\textbf{[\hspace{1 cm}]}
+	\end{minipage}%
+	\begin{minipage}[t]{0.85\linewidth}
+		#1
+	\end{minipage}
+	\smallskip
+}
+% ----------------------------------------------------------------
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\begin{center}
+	{\Large \textbf{Modelación de la Ingeniería con Matemática Computacional (TC-1003B)}}
+	
+	\bigskip
+	{\large \textbf{Actividad 01 -- Matrices}}
+\end{center}
+
+\bigskip
+{\large \textbf{Nombre}: \rule{13.7 cm}{0.4mm}}
+
+% \bigskip
+% {\large \textbf{Matrícula}: \rule{5 cm}{0.4mm}}
+
+% \bigskip
+% {\large \textbf{Name}: \rule{14 cm}{0.4mm}}
+
+\bigskip
+{\large \textbf{Matrícula}: \rule{5 cm}{0.4mm}} \hfill {\large \textbf{Fecha}: \today}
+
+\bigskip
+
+% {\footnotesize Nota: es probable que esta actividad nos asuste un poco al principio. Es perfectamente normal.
+% En efecto, es de mayor dificultad a las que hemos visto anteriormente y probablemente haya dudas.
+% Si hay algo que no entiendas, no te quedes sin preguntar.}
+
+\section{Vectores}
+
+Resuelve las operaciones y contesta correctamente. Puedes usar MATLAB/Octave para ayudarte.
+
+\vspace{3ex}
+
+\begin{multicols}{2}
+Sean $\mathbf{x} = \begin{bmatrix} 1\\ 3\\ 5\\ 7\\ 9\\ 11\\ 13 \end{bmatrix}$ \quad y \quad $\mathbf{y} = \begin{bmatrix}
+    2 \\ 4 \\ 6 \\ 8 \\ 10 \\ 12 \\ 14
+\end{bmatrix}$
+    \columnbreak
+    \begin{enumerate}
+        \itemsep2.5ex
+        \item $\mathbf{x}_1 =$ \hfill \shortresponserule
+        \item $\mathbf{x}_3 =$ \hfill \shortresponserule
+        \item $\mathbf{x}_5 =$ \hfill \shortresponserule
+        \item $2\mathbf{x}_4 =$ \hfill \shortresponserule
+        \item $\mathbf{x}_5^2 =$ \hfill \shortresponserule
+        \item $\mathbf{x} + 10 =$ \hfill \shortresponserule
+        \item $3 \mathbf{x} =$ \hfill \shortresponserule
+        \item $\mathbf{x} + \mathbf{y}$ \hfill \shortresponserule
+    \end{enumerate}
+\end{multicols}
+
+\section{Matrices}
+
+Antes de comenzar con matrices, hay que hacernos algunas preguntas:
+
+\begin{itemize}
+    \item ¿Qué es una variable? \hfill \shortresponserule
+    \item ¿Qué es un arreglo? \hfill \shortresponserule
+	\item ¿Qué es una matriz? \hfill \shortresponserule
+\end{itemize}
+
+\pagebreak
+
+Considera ahora el siguiente problema.
+
+Una patrulla consta de un robot aéreo y uno acuático.
+Si queremos hacer una patrulla con un \textit{Apis IV} y un \textit{Myxini II}, ¿Cuántas placas de material necesitamos?
+
+\bigskip
+
+\begin{enumerate}
+    \itemsep15ex
+    \item Escribe la matriz de requerimientos de los procesadores.
+    \item Escribe la matriz de requerimientos del \textit{Apis IV} y el \textit{Myxini II}.
+    \item Desarrolla la multiplicación a continuación. ¿Da igual el orden?
+    \item ¿Qué operación de las vistas debo aplicar al resultado anterior para saber las placas necesarias para un escuadrón que tiene tres patrullas?
+\end{enumerate}
+
+\section{Reflexión}
+
+Escribe los conceptos, tips o símbolos que consideres útiles para recordar lo visto en la sesión. Esta hoja te será de utilidad durante el examen.
+
+\vfill
+
+\textbf{Apegándome al Código de Ética de los Estudiantes del Tecnológico de Monterrey, me comprometo a que mi actuación en esta actividad esté regida por la honestidad académica.}
+
+\end{document}
