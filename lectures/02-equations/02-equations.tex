@@ -1,0 +1,361 @@
+\documentclass[spanish, c]{beamer}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[spanish, mexico]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{ragged2e}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\renewcommand{\indent}{\hspace*{2em}}
+
+% \usepackage{tikz}
+
+% \usetikzlibrary{fit, shapes, arrows}
+
+% \usepackage{courier}
+% \usepackage{subfigure}
+% \usepackage{enumerate}
+% \usepackage{algorithmic}
+% \usepackage{algorithm}
+
+% \usepackage{listings}
+% \usepackage{lstlinebgrd}
+
+\usetheme{Boadilla}
+\usefonttheme[onlymath]{serif}
+
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-editor]!#1!}
+\newcommand\blfootnote[1]{%
+\begingroup
+\renewcommand\thefootnote{}\footnote{#1}%
+\addtocounter{footnote}{-1}%
+\endgroup
+}
+
+\lstset
+{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = left,
+    frame = tb,
+}
+
+\lstdefinestyle{output}
+{
+    language = {},
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = none,
+    showtabs = false,
+   	showstringspaces = false,
+}
+
+% Sets the templates
+\definecolor{navyblue}{RGB}{0, 0, 128}
+\definecolor{crimson}{RGB}{128, 16, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamercolor{title}{fg=navyblue, bg=white}
+\setbeamercolor{frametitle}{fg=navyblue, bg=white}
+\setbeamercolor{structure}{fg=navyblue}
+\setbeamercolor{button}{fg=white,bg=navyblue}
+
+\setbeamercovered{transparent}
+
+\title{Ecuaciones, propiedades y eliminación}
+\subtitle{Modelación de la ingeniería a través de la matemática computacional \\ (TC1003B)}
+\author{
+    \texorpdfstring{
+        \begin{center}
+            M.C. Xavier Sánchez Díaz \\
+            \href{mailto:sax@tec.mx}{\texttt{sax@tec.mx}}
+        \end{center}
+    }
+    {M.C. Xavier Sánchez Díaz}
+}
+
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../img/logo}}
+\date{}
+
+\begin{document}
+
+\setlength{\rightskip}{0pt}
+
+\begin{frame}[plain]
+    \titlepage        
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{¿Ecuaciones y matrices?}
+
+\begin{frame}{Ensamblando Robots}{¿Ecuaciones y matrices?}
+
+    \textit{IntelliCorp} produce dos tipos de procesadores, el \texttt{x230} y el \texttt{x260} para sus robots.
+    
+    Para poder fabricarlos, se necesitan \textbf{silicio}, \textbf{cobre} y \textbf{aluminio}.
+
+    El \texttt{x230} usa 4, 3 y 5 láminas, respectivamente, mientras que el \texttt{x260} usa 5, 2 y 6 placas.
+
+    \begin{center}
+        \begin{table}[H]
+            \begin{tabular}{@{}ccc@{}}
+            \toprule
+                                    & x230 & x260 \\ \midrule
+            \multicolumn{1}{c|}{Si} & 4    & 5    \\
+            \multicolumn{1}{c|}{Cu} & 3    & 2    \\
+            \multicolumn{1}{c|}{Al} & 5    & 6    \\ \bottomrule
+            \end{tabular}
+        \end{table}
+    \end{center}
+\end{frame}
+
+\begin{frame}{¿Qué tiene más sentido?}{¿Ecuaciones y matrices?}
+
+    ¿Que cada placa se haga con distintos procesadores?
+
+    \begin{align*}
+        S & = 4x_1 + 5 x_2 \\
+        C & = 3x_1 + 2 x_2 \\
+        A & = 5x_1 + 6 x_2
+    \end{align*} \pause
+
+    \bigskip
+
+    ¿Que cada procesador se haga con distintas placas?
+    
+    \begin{align*}
+        x_{230} & = 4s + 3c + 5a \\
+        x_{260} & = 5s + 2c + 6s
+    \end{align*}
+
+\end{frame}
+
+\begin{frame}{Transpuesta}{¿Ecuaciones y matrices?}
+    Para que tenga más sentido, podemos \alert{transponer} la matriz.
+    Para eso, reescribiremos las \textbf{columnas} de la matriz \textbf{como renglones} y los \textbf{renglones como columnas}:
+
+    \[A = 
+        \begin{bmatrix*}
+            4 & 5 \\
+            3 & 2 \\
+            5 & 6
+        \end{bmatrix*}
+    \]
+
+    \bigskip
+
+    \[A^T = 
+        \begin{bmatrix*}
+            4 & 3 & 5 \\
+            5 & 2 & 6
+        \end{bmatrix*}
+    \]
+
+\end{frame}
+
+\begin{frame}{De las operaciones al álgebra}{¿Ecuaciones y matrices?}
+
+    Desde ahora, nuestra $A^T$ será $C= \begin{bmatrix*}
+        4 & 3 & 5 \\
+        5 & 2 & 6
+    \end{bmatrix*}$
+
+    \bigskip
+
+    ¿Cuántas placas necesitaríamos para hacer 3 procesadores de cada tipo? \pause
+
+    \bigskip
+
+    \[
+        3C = 3 \begin{bmatrix*}
+        4 & 3 & 5 \\
+        5 & 2 & 6
+    \end{bmatrix*} = \begin{bmatrix*}
+    12 & 9 & 15 \\
+    15 & 6 & 18
+\end{bmatrix*} \blacksquare
+    \]    
+\end{frame}
+
+\begin{frame}{De las operaciones al álgebra}{¿Ecuaciones y matrices?}
+
+    Si la nueva tecnología antiestática utiliza 1 placa adicional de cada material para el \texttt{x230}, y 2 placas de silicio, 1 de cobre y 1 de aluminio adicionales para el \texttt{x260}, ¿cuántas placas necesitaré de ahora en adelante si ahora todos mis procesadores incluirán tecnología antiestática?
+
+    \bigskip \pause
+
+    Primero, ¿cómo es la matriz de costos de la tecnología antiestática? \pause
+    
+    $$S = \begin{bmatrix*}
+        1 & 1 & 1 \\
+        2 & 1 & 1
+    \end{bmatrix*}$$
+
+    \bigskip \pause
+
+    El nuevo costo entonces es \bigskip
+
+    \[%
+        C + S =%
+        \begin{bmatrix*}
+            4 & 3 & 5 \\
+            5 & 2 & 6
+        \end{bmatrix*}
+        %
+        +
+        %
+        \begin{bmatrix*}
+            1 & 1 & 1 \\
+            2 & 1 & 1
+        \end{bmatrix*}
+        %
+        =
+        %
+        \begin{bmatrix*}
+            5 & 4 & 6 \\
+            7 & 3 & 7
+        \end{bmatrix*} \blacksquare
+    \]
+\end{frame}
+
+\begin{frame}{De las operaciones al álgebra}{¿Ecuaciones y matrices?}
+    Nuestra nueva $C$ es ahora
+    $C = \begin{bmatrix*}
+        5 & 4 & 6 \\
+        7 & 3 & 7
+    \end{bmatrix*}$.
+    Si sabemos que cada placa de silicio cuesta \$4, cada placa de cobre \$2 y cada placa de aluminio \$3, ¿Cuál es el precio total de cada procesador en \$? \pause
+
+    \bigskip
+
+    Nuestro vector de precios es $\mathbf{p} = [4, 2, 3]^T$ así que\dots \pause
+
+    \bigskip
+
+    \begin{align*}
+        C\mathbf{p} =
+        \begin{bmatrix*}
+            5 & 4 & 6 \\
+            7 & 3 & 7
+        \end{bmatrix*}
+        \begin{bmatrix*}
+            4 \\ 2 \\ 3    
+        \end{bmatrix*} & = 4 \begin{pmatrix*} 5 \\ 7 \end{pmatrix*} + 2 \begin{pmatrix*} 4 \\ 3 \end{pmatrix*} + 3 \begin{pmatrix*} 6 \\ 7 \end{pmatrix*} \\
+        & = \begin{bmatrix*} 20 + 8 + 18 \\ 28 + 6 + 21 \end{bmatrix*} \\
+        & = \begin{bmatrix*} 46 \\ 55 \end{bmatrix*} \blacksquare
+    \end{align*}
+
+\end{frame}
+
+\begin{frame}{De las operaciones al álgebra}{¿Ecuaciones y matrices?}
+    Ya sabemos el precio de cada procesador. Ahora queremos saber la resistencia eléctrica de cada uno, así como también su peso. \pause
+
+    La matriz que contiene esta información (la columna de resistencias y la columna de pesos, por cada material) es
+    $D = \begin{bmatrix*}
+        3 & 2 \\
+        1 & 4 \\
+        2 & 3
+    \end{bmatrix*}$
+
+    \bigskip
+    
+    ¿Puedo hacer la multiplicación de siempre? ¿Qué matriz obtendré? \pause
+
+    \[
+        CD = \begin{bmatrix*}
+            31 & 44 \\
+            38 & 47
+        \end{bmatrix*}
+    \]
+
+    Que es la matriz de resistencia y peso (heredados de $D$) de los procesadores (heredados de $C$).
+\end{frame}
+
+\begin{frame}{De las operaciones al álgebra}{¿Ecuaciones y matrices?}
+    Volvamos a transponer nuestra matriz para poder manejar pedidos \\
+    (materiales~$\times$~procesador y procesadores~$\times$~pedido para obtener\\
+    materiales $\times$ pedidos):
+    $C = C^T = 
+    \begin{bmatrix}
+        5 & 7 \\
+        4 & 3 \\
+        6 & 7
+    \end{bmatrix}$
+    
+    \bigskip
+
+    Y asumamos que nos hacen un pedido de 3 procesadores \texttt{x230} y 3 procesadores \texttt{x260}.
+    ¿Cuánto material necesito? \pause
+
+    \begin{itemize}[<+->]
+        \item ¿Cuál es el vector que representa un pedido de 2 y 0 \texttt{x230} y \texttt{x260} respectivamente?
+        \item ¿Y si nuestro pedido fuera de 2 y 2?
+        \item ¿Y si fuera de 2 y 3?
+        \item ¿Y si mi pedido fuera de 1 y 1?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Matriz escalar}{¿Ecuaciones y matrices?}
+    Una \alert{matriz escalar} es una matriz que sólo tiene \textbf{escalares} en la \textbf{diagonal}. Sirven para \textit{escalar} una matriz: cada una columna por un \textit{cierto} factor. \pause
+
+    \bigskip
+
+    ¿Cuál es el resultado de la siguiente operación? \bigskip
+
+    \[
+        \begin{bmatrix}
+            \color{red} 5 & \color{blue} 7 \\
+            \color{red} 4 & \color{blue} 3 \\
+            \color{red} 6 & \color{blue} 7
+        \end{bmatrix}
+        \begin{bmatrix*}
+            \color{red} 2 & 0 \\
+            0 & \color{blue} 3
+        \end{bmatrix*} = \pause
+        \begin{bmatrix*}
+            \color{red} 10 & \color{blue} 21 \\
+            \color{red} 8 & \color{blue} 9 \\
+            \color{red} 12 & \color{blue} 21
+        \end{bmatrix*}
+    \]
+\end{frame}
+
+% Los robots
+% why is it important
+% does it exist in math?
+% how to represent it
+% how to represent it in matlab
+% practical cases
+
+% \section*{Referencias}
+
+% \begin{frame}[t]{Referencias}
+    % \nocite{bibID01}
+    % \nocite{bibID02}
+
+    % \bibliographystyle{IEEE}
+    % \bibliography{biblio}
+% \end{frame}
+
+\end{document}
