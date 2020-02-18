@@ -63,6 +63,13 @@
    	showstringspaces = false,
 }
 
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
 % Sets the templates
 \definecolor{navyblue}{RGB}{0, 0, 128}
 \definecolor{crimson}{RGB}{128, 16, 0}
@@ -340,6 +347,227 @@
         \end{bmatrix*}
     \]
 \end{frame}
+
+\begin{frame}{Matriz identidad}{Ecuaciones y matrices}
+    De las matrices \textbf{escalares}, aquella que al multiplicarla por cualquier matriz $A$ hace que se cumpla \textit{la identidad multiplicativa}, dando como resultado $A$, se le conoce como \alert{matriz identidad}. \pause
+
+    \bigskip
+
+    \[
+        \begin{bmatrix*}
+            10 & 21 \\
+            8 & 9 \\
+            12 & 21
+        \end{bmatrix*}
+        \begin{bmatrix*}
+            1 & 0  \\
+            0 & 1
+        \end{bmatrix*} = \begin{bmatrix*}
+            10 & 21 \\
+            8 & 9 \\
+            12 & 21
+        \end{bmatrix*}
+    \] \pause
+
+    \bigskip
+
+    Es decir, una \textbf{matriz escalar} con 1 en la diagonal y 0 en el resto de las posiciones. Para representarla usamos la letra $I$, de $I$\textit{dentity}. \pause
+
+    \bigskip
+
+    ¿Cuáles serán las dimensiones de una \alert{matriz identidad} que queremos multiplicar por una matriz de $4 \times 3$?
+\end{frame}
+
+\section{Ecuaciones y matrices}
+
+\begin{frame}{Álgebra de matrices}{Ecuaciones y matrices}
+
+    Asumamos que tenemos $AX = B$, donde tanto $A$ como $B$ y $X$ son matrices. ¿Cómo hacemos para despejar la matriz $X$?
+
+    \bigskip
+
+    \dots {\scriptsize (no, no es dividiendo. Recordemos que $AB$ no es lo mismo que $BA$)}
+
+    \bigskip
+
+    Si la multiplicación de matrices es una \textit{transformación lineal} que aplicamos a otra matriz\dots debe existir algo que la revierta, ¿no? \dots
+
+    \bigskip
+
+    \dots Sí, pero no siempre.
+
+\end{frame}
+
+\begin{frame}{Ecuaciones lineales}{Ecuaciones y matrices}
+    Una \alert{ecuación} es \textbf{una igualdad matemática}. En este curso nos enfocaremos en aquellas igualdades que son \textbf{lineales}, es decir que todas sus \textbf{variables} son de \textit{grado 1} (o con exponente 1). \pause
+
+    \bigskip
+
+    \[3x + 2y + 4z = 250\] \pause
+
+    Una ecuación es una manera muy conveniente de expresar, por ejemplo, que 3 $cocas$, 2 $burgers$ y 4 $papas$ salen \$250. \pause
+
+    Si vamos en repetidas ocasiones (y los precios no cambian), podríamos generar más ecuaciones, dependiendo de los pedidos que hagamos, por ejemplo $2x + 2y + 2z = 190$.
+\end{frame}
+
+\begin{frame}{Disectando una ecuación}{Ecuaciones y matrices}
+
+    \[\alert<4>{3}\alert<3>{x} + \alert<4>{2}\alert<3>{y} + \alert<4>{4}\alert<3>{z} = \alert<5>{250}\] \pause
+
+    \begin{itemize}[<+->]
+        \item \alert<3>{Variables} o \textbf{incógnitas}
+        \item \alert<4>{Coeficientes}
+        \item \alert<5>{Término constante}
+    \end{itemize} \pause
+
+    Si la reescribimos con el término constante del lado izquierdo, podemos obtener:
+
+    \[3x + 2y + 4z -250 = 0\]
+
+    que se conoce como \textbf{ecuación homogénea}.  
+\end{frame}
+
+\begin{frame}{Matrices para ecuaciones}{Ecuaciones y matrices}
+
+    Podemos usar matrices para representar un \alert{sistema de ecuaciones lineales}, que son múltiples ecuaciones \textbf{simultáneas}: \pause
+
+    \begin{align*}
+        & 3x + 2y + 4z = 270 \\
+        & 2x + 2y + 2z = 200 \\
+        & 4x + 4y + 3z = 375
+    \end{align*} \pause
+
+    Podemos hacer una matriz con los coeficientes, y un vector con los resultados, para luego unirlos en una \alert{matriz aumentada}. Si 
+
+    \[
+        C = \begin{bmatrix*}
+            3 & 2 & 4 \\
+            2 & 2 & 2 \\
+            4 & 4 & 3
+        \end{bmatrix*} \text{ y }
+        \mathbf{r} =
+        \begin{bmatrix*}
+            270 \\ 200 \\ 375
+        \end{bmatrix*} \quad \text{entonces} \quad
+        M = \begin{bmatrix}[ccc|c]
+            3 & 2 & 4 & 270 \\
+            2 & 2 & 2 & 200 \\
+            4 & 4 & 3 & 375
+        \end{bmatrix}    
+    \]   
+
+\end{frame}
+
+\begin{frame}{Resolviendo sistemas de ecuaciones}{Ecuaciones y matrices}
+    Vamos a \alert{resolver} \textbf{el sistema} para encontrar cuánto valen $x, y$ y $z$.
+    Para eso, sólo podemos usar las siguientes \alert{operaciones por renglón}: \pause
+
+    \bigskip
+
+    \begin{enumerate}[<+->]
+        \item Intercambiar renglones de lugar: $$R_1 \leftrightarrow R_2$$
+        \item Escalar renglones (multiplicando por escalar): $$R_1 \leftarrow cR_1$$
+        \item A un renglón existente, restarle un otro renglón escalado: $$R_1 \leftarrow R_1 - cR_2$$
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Aplicando las reglas de manera ordenada}{Ecuaciones y matrices}
+    El \textbf{algoritmo de} \alert{eliminación Gaussiana} resuelve ecuaciones lineales de la siguiente forma:
+
+    \begin{enumerate}
+        \item Prepare la matriz (ordene los  renglones para tener el $a_{11}$ distinto de 0)
+        \item Obtenga 0s debajo de $a_{11}$ usando las reglas anteriores.
+        \item Olvídese de la columna 1 y fila 1. Pase al $a_{22}$ y \textbf{repita} desde el paso 1 \textbf{hasta} que tenga una \alert{matriz escalonada}.
+        \item Obtenga 0s arriba de $a_{mn}$ usando las reglas anteriores.
+        \item Olvídese de la columna $m$ y la fila $n$. Pase al $a_{m-1n-1}$ y repita hasta que consiga la \textbf{matriz identidad}.
+        \item Usted ha terminado.
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Matrices Invertibles}{Ecuaciones y Matrices}
+    Ahora que ya sabemos lo que es la \textbf{eliminación} y la \textbf{reducción}, podemos contestar la pregunta\dots ¿cómo revierto una multiplicación de matrices? \pause
+
+    \bigskip
+
+    Si $C$ es una matriz de $2 \times  2$, entonces si hacemos $C \times \begin{bmatrix*}
+        3 & 0 \\ 0 & 3
+    \end{bmatrix*}$ sabemos que obtendremos el triple de $C$. Esto \textit{podría} ser reversible. \pause
+
+    \bigskip
+
+    ¿Qué pasa si tenemos $C \times \begin{bmatrix*}
+        0 & 0 \\ 0 & 0
+    \end{bmatrix*}$? \pause
+
+    \bigskip
+
+    ¿Es esto reversible?
+
+\end{frame}
+
+\begin{frame}{Matriz Invertible}{Ecuaciones y Matrices}
+    Como vimos, hay matrices que no se pueden invertir (por ejemplo, la matriz cuadrada de puros 0s). A este tipo de matrices les llamamos \textit{singulares} o \textit{no invertibles}. \pause
+
+    \bigskip
+
+    Sin embargo, hay otras matrices \textbf{cuadradas} que sí podemos revertir. Si $A$ es una matriz cuadrada, es \alert{invertible} (o \textit{no singular}) siempre que cumpla la siguiente regla: \pause
+
+    \bigskip
+
+    \[AB = I \text{ y } BA = I\]
+
+    \bigskip
+
+    ¿A qué operación te recuerda esto?  
+
+\end{frame}
+
+\begin{frame}{Inversión de matrices}{Ecuaciones y matrices}
+
+    Digamos que $A = \begin{bmatrix*}
+        1 & 2 \\ 3 & -5
+    \end{bmatrix*}$, y estamos buscando una matriz $B$ \textbf{de las mismas dimensiones} de tal manera que $AB = I_{2 \times 2}$: \pause
+
+    \bigskip
+
+    \[
+        \begin{bmatrix*}
+            1 & 2 \\
+            3 & -5
+        \end{bmatrix*}
+        \begin{bmatrix*}
+            b_{11} & b_{12} \\
+            b_{21} & b_{22}
+        \end{bmatrix*} =
+        \begin{bmatrix*}
+            1 & 0 \\ 0 & 1
+        \end{bmatrix*}
+    \] \pause
+
+    \bigskip
+
+    ¿Cuáles son las ecuaciones que tenemos para cada una de las casillas en $I$?
+\end{frame}
+
+\begin{frame}{Inversión de matrices}{Ecuaciones y matrices}
+        \begin{align}
+            1 \cdot b_{11} - 2 \cdot b_{21} = 1 \\
+            3 \cdot b_{11} - 5 \cdot b_{21} = 0 \\
+            1 \cdot b_{12} - 2 \cdot b_{22} = 0 \\
+            3 \cdot b_{12} - 5 \cdot b_{22} = 1
+        \end{align} \pause
+
+        ¿Puedes resolver el sistema? \pause \quad \quad {\scriptsize(Spoiler alert: sí puedes)}
+
+        \bigskip
+
+        Si el sistema tiene solución, entonces las \textit{variables} serán usadas para construir una nueva matriz que es la \alert{inversa} de $A$.
+\end{frame}
+
+
+
+% Específicamente, la regla 3 puede verse como $R_i = R_i - \frac{a_{ik}}{a_{jk}}R_j$.
 
 % Los robots
 % why is it important
