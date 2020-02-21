@@ -479,9 +479,66 @@
         \item Obtenga 0s debajo de $a_{11}$ usando las reglas anteriores.
         \item Olvídese de la columna 1 y fila 1. Pase al $a_{22}$ y \textbf{repita} desde el paso 1 \textbf{hasta} que tenga una \alert{matriz escalonada}.
         \item Obtenga 0s arriba de $a_{mn}$ usando las reglas anteriores.
-        \item Olvídese de la columna $m$ y la fila $n$. Pase al $a_{m-1n-1}$ y repita hasta que consiga la \textbf{matriz identidad}.
+        \item Olvídese de la columna $m$ y la fila $n$. Pase al $a_{m-1n-1}$ y repita desde el paso 4 y hasta que consiga la \textbf{matriz identidad}.
         \item Usted ha terminado.
     \end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Eliminación Gaussiana}{Ecuaciones y Matrices}
+
+    \begin{align*}
+        M =
+    & \begin{bmatrix}[ccc|c]
+        3 & 2 & 4 & 270 \\
+        2 & 2 & 2 & 200 \\
+        4 & 4 & 3 & 375
+    \end{bmatrix}
+    & \hfill R_2 \gets \frac{R_2}{2}, R_1 \longleftrightarrow R_2 \\
+    = & \begin{bmatrix}[ccc|c]
+        1 & 1 & 1 & 100 \\
+        3 & 2 & 4 & 270 \\
+        4 & 4 & 3 & 375
+    \end{bmatrix}
+    & R_2 \gets R_2 - 3R_1, R_3 \gets R_3 - 4R_1 \\
+    = & \begin{bmatrix}[ccc|c]
+        1 & 1 & 1 & 100 \\
+        0 & -1 & 1 & -30 \\
+        0 & 0 & -1 & -25
+    \end{bmatrix}
+    & R_2 \gets (-1)R_2, R_3 \gets (-1)R_3 \\
+    = & \begin{bmatrix}[ccc|c]
+        1 & 1 & 1 & 100 \\
+        0 & 1 & -1 & 30 \\
+        0 & 0 & 1 & 25
+    \end{bmatrix}
+    & \text{Cont.} \longrightarrow
+    \end{align*}
+\end{frame}
+
+\begin{frame}{Eliminación Gaussiana (Cont.)}{Ecuaciones y Matrices}
+    \begin{align*}
+        = & \begin{bmatrix}[ccc|c]
+            1 & 1 & 1 & 100 \\
+            0 & 1 & -1 & 30 \\
+            0 & 0 & 1 & 25
+        \end{bmatrix}
+        & R_2 \gets R_2 - R_3, R_1 \gets R_3 \\
+        = & \begin{bmatrix}[ccc|c]
+            1 & 1 & 0 & 75 \\
+            0 & 1 & 0 & 55 \\
+            0 & 0 & 1 & 25
+        \end{bmatrix}
+        & R_1 \gets R_1 - R_2 \\
+        = & \begin{bmatrix}[ccc|c]
+            1 & 0 & 0 & 20 \\
+            0 & 1 & 0 & 55 \\
+            0 & 0 & 1 & 25
+        \end{bmatrix} \blacksquare
+    \end{align*}
+
+    Por tanto, podemos concluir que $coca = 20, burger = 55$ y $papa = 25 \quad \blacksquare$
+
 
 \end{frame}
 
