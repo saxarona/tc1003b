@@ -1,1 +1,2 @@
 *.synctex.gz
+*.ipynb_checkpoints*
