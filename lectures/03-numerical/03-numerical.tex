@@ -1,0 +1,315 @@
+\documentclass[spanish, c]{beamer}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[spanish, mexico]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{ragged2e}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\renewcommand{\indent}{\hspace*{2em}}
+
+% \usepackage{tikz}
+
+% \usetikzlibrary{fit, shapes, arrows}
+
+% \usepackage{courier}
+% \usepackage{subfigure}
+% \usepackage{enumerate}
+% \usepackage{algorithmic}
+% \usepackage{algorithm}
+
+% \usepackage{listings}
+% \usepackage{lstlinebgrd}
+
+\usetheme{Boadilla}
+\usefonttheme[onlymath]{serif}
+
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-editor]!#1!}
+\newcommand\blfootnote[1]{%
+\begingroup
+\renewcommand\thefootnote{}\footnote{#1}%
+\addtocounter{footnote}{-1}%
+\endgroup
+}
+
+\lstset
+{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = left,
+    frame = tb,
+}
+
+\lstdefinestyle{output}
+{
+    language = {},
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = none,
+    showtabs = false,
+   	showstringspaces = false,
+}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+% Sets the templates
+\definecolor{navyblue}{RGB}{0, 0, 128}
+\definecolor{crimson}{RGB}{128, 16, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamercolor{title}{fg=navyblue, bg=white}
+\setbeamercolor{frametitle}{fg=navyblue, bg=white}
+\setbeamercolor{structure}{fg=navyblue}
+\setbeamercolor{button}{fg=white,bg=navyblue}
+
+\setbeamercovered{transparent}
+
+\title{Del Álgebra a la Computadora: Métodos Numéricos para Sistemas de Ecuaciones}
+\subtitle{Modelación de la ingeniería a través de la matemática computacional \\ (TC1003B)}
+\author{
+    \texorpdfstring{
+        \begin{center}
+            M.C. Xavier Sánchez Díaz \\
+            \href{mailto:sax@tec.mx}{\texttt{sax@tec.mx}}
+        \end{center}
+    }
+    {M.C. Xavier Sánchez Díaz}
+}
+
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../img/logo}}
+\date{}
+
+\begin{document}
+
+\setlength{\rightskip}{0pt}
+
+\begin{frame}[plain]
+    \titlepage        
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+
+% Review on Gauss Elimination
+% Gauss Elimination vs Gauss-Jordan vs Montante
+% What are we exactly doing when we solve equations?
+% The Ax = B form
+% Pitfalls of Algebraic forms
+% Let's try guessing and approximating
+% Errors
+% Float Point storage
+% Diagonal Matrices
+
+\section{Repaso de Eliminación Gaussiana}
+
+\begin{frame}{Recordando las reglas de oro}{Eliminación}
+    Sólo podemos usar cualquiera de las siguientes reglas: \pause
+    
+    \bigskip
+
+    \begin{enumerate}[<+->]
+        \item Intercambiar renglones de lugar: $$R_1 \leftrightarrow R_2$$
+        \item Escalar renglones (multiplicando por escalar): $$R_1 \leftarrow cR_1$$
+        \item A un renglón existente, restarle un otro renglón escalado: $$R_1 \leftarrow R_1 - cR_2$$
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Otro ejemplo de eliminación}{Eliminación}
+    Para el sistema siguiente\dots \pause
+
+    \begin{align*}
+         x +  y +  z & = 2 \\
+         x      +  z & = 1 \\
+        2x + 5y + 2z & = 7 
+    \end{align*} \pause
+
+    Consigamos la matriz aumentada del sistema: \\
+    $$\begin{bmatrix}[ccc|c]
+        1 & 1 & 1 & 2 \\
+        1 & 0 & 1 & 1 \\
+        2 & 5 & 2 & 7
+    \end{bmatrix}$$ \pause
+
+    ¿Qué podemos hacer con ella?
+\end{frame}
+
+\begin{frame}{Otro ejemplo de elimnación}{Eliminación}
+    Primero reordenemos ($R_2 \longleftrightarrow R_3$) \pause
+    $$\begin{bmatrix}[ccc|c]
+        1 & 1 & 1 & 2 \\
+        2 & 5 & 2 & 7 \\
+        1 & 0 & 1 & 1
+    \end{bmatrix}$$ \pause
+
+    Y reduzcamos el segundo renglón ($R_2 \gets R_2 - 2R_1$): \pause
+    $$\begin{bmatrix}[ccc|c]
+        1 & 1 & 1 & 2 \\
+        0 & 3 & 0 & 3 \\
+        1 & 0 & 1 & 1
+    \end{bmatrix}$$ \pause
+
+    Claramente podemos escalar $R_2$: \pause
+    $$\begin{bmatrix}[ccc|c]
+        1 & 1 & 1 & 2 \\
+        0 & 1 & 0 & 1 \\
+        1 & 0 & 1 & 1
+    \end{bmatrix}$$
+\end{frame}
+
+\begin{frame}{Otro ejemplo de elimnación}{Eliminación}
+    Podemos reducir ahora las $y$ en $R_1$ ($R_1 \gets R_1 - R_2$): \pause
+    
+    $$\begin{bmatrix}[ccc|c]
+        1 & 0 & 1 & 1 \\
+        0 & 1 & 0 & 1 \\
+        1 & 0 & 1 & 1
+    \end{bmatrix}$$ \pause
+
+    ¿Podemos hacer algo más? \pause ¿Qué significa esta matriz? \pause
+    Si la pasamos a ecuaciones\dots \pause
+    \begin{align*}
+        x + z & = 1 \\
+        y & = 1 \\
+        x + z & = 1
+    \end{align*} \pause
+    \dots lo que significa que $y=1, z = 1 - x$ y $x = 1 - z \quad \blacksquare$ \pause
+
+    Este tipo de soluciones \textbf{también son válidas}.
+
+\end{frame}
+
+\section{La forma canónica de los SEL}
+
+\begin{frame}{¿Qué estamos haciendo realmente al resolver un SEL?}{La forma $A\mathbf{x} = \mathbf{b}$}
+    Estamos encontrando los valores de $x, y$ y $z$ que hacen que el sistema sea congruente (si es que es posible). \pause
+
+    Asumamos un sistema como el siguiente:
+    $$
+    \begin{bmatrix}[ccc|c]
+        \alert<4>{1} & \alert<4>{0} & \alert<4>{0} & \alert<5>{b_1} \\
+        \alert<4>{0} & \alert<4>{1} & \alert<4>{0} & \alert<5>{b_2} \\
+        \alert<4>{0} & \alert<4>{0} & \alert<4>{1} & \alert<5>{b_3}
+    \end{bmatrix}
+    $$ \pause
+
+    ¿Cuál es el valor de $x$? ¿Y el de $y$ y $z$? \pause
+
+    Podemos identificar claramente que a la izquierda conseguimos la \textbf{matriz identidad}\dots \pause
+    \dots y a la derecha un \textbf{vector} de valores constantes \pause. ¿A qué nos recuerda esto?
+\end{frame}
+
+\begin{frame}{¿Qué estamos haciendo realmente al resolver un SEL?}{La forma $A\mathbf{x} = \mathbf{b}$}
+    
+    Realmente, podemos \textit{descomponer} el sistema de ecuaciones lineales en tres elementos: \pause
+
+    \bigskip
+
+    \begin{enumerate}[<+->]
+        \item Una \textbf{matriz} cuadrada \textbf{de coeficientes} $A = \begin{bmatrix} 1 & 1 & 1 \\ 1 & 0 & 1 \\ 2 & 5 & 2 \end{bmatrix}$
+        \item Un \textbf{vector de variables} $\mathbf{x} = \begin{bmatrix}
+            x_1 &  x_2 &  x_3\end{bmatrix}^T$
+        \item Un \textbf{vector de constantes} $\mathbf{b} = \begin{bmatrix} 2 \\ 1 \\ 7 \end{bmatrix}$
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Reflexión}
+    \begin{center}
+        \Huge Para cada paso de la eliminación\dots ¿cómo sabes qué paso debería seguir?
+    \end{center}
+\end{frame}
+
+\begin{frame}{Una idea}
+    \begin{center}
+        \Huge
+        ¿Qué tal si empezamos a poner valores al tanteo, y vamos \textit{calando} distintos valores para cada variable?
+    \end{center}
+\end{frame}
+
+\begin{frame}{Error}{Errores y representación digital}
+Asumamos, pues, que vamos a empezar en un \textbf{valor inicial} y que iremos, poco a poco, variando el valor de cada variable ({\footnotesize duh}) para llegar a una solución aproximada. \pause
+
+En cada paso debo preguntarme: \pause
+
+\begin{itemize}[<+->]
+    \item ¿Qué tanto me falta para llegar?
+    \item ¿Para dónde debo moverme?
+    \item ¿Le sumo o le resto?
+\end{itemize} \pause
+
+Después de muchos pasos, yo esperaría estar cada vez más cerca de la solución. ¿Siempre es así?
+\end{frame}
+
+\begin{frame}{Error}{Errores y representación digital}
+    
+    \begin{center}
+        {\Huge Story time: \textit{the Wolf}}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Representación digital}{Errores y representación digital}
+    \begin{center}
+        {\Huge Story time: \textit{floating points}}
+    \end{center}
+\end{frame}
+
+\section{Del álgebra a los números}
+
+\begin{frame}{Del álgebra a los números}
+    La solemne y civilizada forma \textit{canónica} de un sistema de ecuaciones lineales, la $A\mathbf{x} = \mathbf{b}$ es hermosa, sí; pero no es práctica. \pause
+    
+    ¿Qué pasa si mi sistema de ecuaciones es de 40 ecuaciones y 40 incógnitas? \pause ¿Y si es de 2000? \pause
+
+    \bigskip
+
+    Dada a la presencia de herramientas para hacer muchos cálculos en poco tiempo, los métodos \textit{iterativos} se volvieron más comunes. \pause
+    
+    \bigskip
+
+    Es importante entender la diferencia entre la manera \textit{abstracta, perfecta} de resolver \alert{algebraicamente} un sistema de ecuaciones, y la manera \alert{numérica} para hacerlo: usando aproximaciones hasta alcanzar una \textbf{precisión} deseada.
+\end{frame}
+
+\begin{frame}{Funciones diferenciables vs Aproximaciones Discretas}
+    \begin{center}
+        \Huge Mini story time:
+        
+        \textit{Continuo versus Discreto}
+    \end{center}
+\end{frame}
+
+% \section*{Referencias}
+
+% \begin{frame}[t]{Referencias}
+    % \nocite{bibID01}
+    % \nocite{bibID02}
+
+    % \bibliographystyle{IEEE}
+    % \bibliography{biblio}
+% \end{frame}
+
+\end{document}
