@@ -1,0 +1,149 @@
+\documentclass[spanish, 10pt]{article}
+
+\usepackage[table, xcdraw]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, mexico]{babel}
+\usepackage{helvet}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{ulem}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage[margin = 3 cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{matlab-prettifier}
+\usepackage{multicol}
+
+\usetikzlibrary{arrows, shapes, trees, calc, decorations.pathreplacing, shapes.misc, positioning, automata}
+
+\setlength\parindent{0pt}
+
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\responserule}{{\large\rule{14 cm}{0.3mm}}}
+\newcommand{\shortresponserule}{{\large\rule{5 cm}{0.3mm}}}
+\newcommand{\veryshortresponserule}{{\large\rule{3 cm}{0.3mm}}}
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-pyglike]!#1!}
+
+
+% Specifications for listing package
+% \lstset{	
+%     basicstyle = \scriptsize\ttfamily,
+%     keywordstyle = \color{blue}\ttfamily,
+%     stringstyle = \color{red}\ttfamily,
+%    	commentstyle = \color{gray}\ttfamily,
+%    	tabsize = 3,
+%    	breaklines = true,
+%    	stepnumber = 1,
+%    	showtabs = false,
+%    	showstringspaces = false,
+%    	frame = none
+% }
+
+% Commands for true/false questions
+% ----------------------------------------------------------------
+\newcommand{\question}[1]{%
+	\noindent
+	\begin{minipage}[t]{0.15\linewidth}
+	\centering		
+		\textbf{[\hspace{1 cm}]}
+	\end{minipage}%
+	\begin{minipage}[t]{0.85\linewidth}
+		#1
+	\end{minipage}
+	\smallskip
+}
+% ----------------------------------------------------------------
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\begin{center}
+	{\Large \textbf{Modelación de la Ingeniería con Matemática Computacional (TC-1003B)}}
+	
+	\bigskip
+	{\large \textbf{Actividad 03 -- Álgebra de Matrices}}
+\end{center}
+
+\bigskip
+{\large \textbf{Nombre}: \rule{13.7 cm}{0.4mm}}
+
+% \bigskip
+% {\large \textbf{Matrícula}: \rule{5 cm}{0.4mm}}
+
+% \bigskip
+% {\large \textbf{Name}: \rule{14 cm}{0.4mm}}
+
+\bigskip
+{\large \textbf{Matrícula}: \rule{5 cm}{0.4mm}} \hfill {\large \textbf{Fecha}: \today}
+
+\bigskip
+
+% {\footnotesize Nota: es probable que esta actividad nos asuste un poco al principio. Es perfectamente normal.
+% En efecto, es de mayor dificultad a las que hemos visto anteriormente y probablemente haya dudas.
+% Si hay algo que no entiendas, no te quedes sin preguntar.}
+
+\section{Matrices}
+
+\vspace{3ex}
+
+Sean $A = \begin{bmatrix}
+    2 & -1 & 3 & 5 \\
+    0 & 2 & -3 & 1 \\
+    3 & 4 & 1 & 2
+\end{bmatrix}, \;
+\mathbf{x} = \begin{bmatrix}    
+2 \\ 1 \\ 0 \\ -2
+\end{bmatrix}$.
+
+\vspace{3ex}
+
+Con esta información, contesta las siguientes preguntas y realiza las operaciones requeridas:
+
+\begin{itemize}
+    \item ¿Cuáles son las dimensiones de $A$?
+    \item ¿Cuáles son las dimensiones de $\mathbf{x}$?
+    \item ¿Es posible hacer la multiplicación $A\mathbf{x}$? En caso de que sea posible, desarrolla el producto.
+    \item ¿Es posible hacer la operación $A^2$? En caso de que sea posible, desarróllala.
+\end{itemize}
+
+\pagebreak
+
+Sean $A = \begin{bmatrix}
+    2 & 3 & 5 \\
+    1 & 4 & 7 \\
+    0 & 1 & 8
+\end{bmatrix}, \;
+B = \begin{bmatrix}
+    8 & 9 \\
+    7 & 2 \\
+    6 & 1
+\end{bmatrix}$.
+
+\vspace{3ex}
+
+Con esta información, contesta las siguientes preguntas y realiza las operaciones requeridas:
+
+\begin{itemize}
+    \item ¿Cuáles son las dimensiones de $A$?
+    \item ¿Cuáles son las dimensiones de $B$?
+    \item ¿Es posible hacer la multiplicación $AB$? En caso de que sea posible, desarrolla el producto.
+    \item ¿Es posible hacer la multiplicación $BA$? En caso de que sea posible, desarrolla el producto.
+    \item ¿Es posible hacer la operación $B^2$? En caso de que sea posible, desarróllala.
+\end{itemize}
+
+\vspace{45ñex}
+
+\section{Reflexión}
+
+Escribe los conceptos, tips o símbolos que consideres útiles para recordar lo visto en la sesión. Esta hoja te será de utilidad durante el examen.
+
+\vfill
+
+\textbf{Apegándome al Código de Ética de los Estudiantes del Tecnológico de Monterrey, me comprometo a que mi actuación en esta actividad esté regida por la honestidad académica.}
+
+\end{document}
