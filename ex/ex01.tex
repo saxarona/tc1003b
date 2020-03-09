@@ -13,6 +13,7 @@
 \usepackage{tikz}
 \usepackage{tcolorbox}
 \usepackage{csquotes}
+\usepackage{helvet}
 \usetikzlibrary{arrows, automata}
 
 \tikzset{
@@ -74,7 +75,7 @@
 
 %		!!!EQUATION (ARRAY) --> USING ALIGN INSTEAD
 %using amsmath package to redefine eq. numeration (1.1, 1.2, ...) 
-\renewcommand{\theequation}{\thesection\arabic{equation}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
 
 \setlength\parindent{0pt}
 
@@ -115,26 +116,33 @@
 % You can set the date automatically by replacing "date goes here" with "\today"
 
 % \renewcommand{\rmdefault}{phv} % Arial Font
-% \renewcommand{\sfdefault}{phv} % Arial Font
+\renewcommand{\familydefault}{\sfdefault}
 
 % \pagestyle{fancy}
 % \fancyhead{}
 % \fancyhead[CO,CE]{{\small{{\bf{\mytitle}} -- \myclass}}}
+
+\newcommand{\responserule}{{\large\rule{14 cm}{0.3mm}}}
+\newcommand{\shortresponserule}{{\large\rule{5 cm}{0.3mm}}}
+\newcommand{\veryshortresponserule}{{\large\rule{3 cm}{0.3mm}}}
 
 \begin{document}
 \maketitle
 
 \vspace{-1.5cm}
 
-Lee cuidadosamente y contesta lo que se te pide.
+{%
+\footnotesize
+\textit{Lee cuidadosamente y contesta lo que se te pide.
 Este examen está pensado para resolverse \textbf{en equipo}, y en poco menos de 90 minutos.
-Se sugiere que administres bien tu tiempo.
+Se sugiere que administres bien tu tiempo.}
 
-Al momento de contestar, intenten ser lo más explícito posible: se calificará con base en lo que esté escrito, y se considerará el proceso aún cuando la respuesta final esté errada.
+\textit{Al momento de contestar, intenten ser lo más explícito posible: se calificará con base en lo que esté escrito, y se considerará el proceso aún cuando la respuesta final esté errada.
 Recuerda que puedes revisar material de la clase, el libro de texto o tus notas.
-Buena suerte.
+Buena suerte.}
+}
 
-\section{Redes Neuronales (70\%)}
+\section{Redes Neuronales (100\%)}
 
 Una red neuronal es un mecanismo de aprendizaje automático muy utilizado en inteligencia artificial que sirve para aproximar funciones usando reconocimiento de patrones.
 La función que la red neuronal aproxima puede servir para separar en grupos definidos (clasificación) o bien para predecir comportamientos (regresión).
@@ -143,96 +151,156 @@ Para entender cómo funciona una red neuronal, primero es necesario entender có
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{perceptron.pdf}
-    \caption{Perceptrón: una red neuronal de una sola neurona}
+    \includegraphics[width=0.7\textwidth]{perceptron.pdf}
+    \caption{Perceptrón: una red neuronal de una sola neurona.}
     \label{fig:perceptron}
 \end{figure}
 
-Un \textbf{perceptrón} es una red neuronal que consta de una sola neurona, como se muestra en la Fig.~\ref{fig:perceptron}.
-La neurona recibe señales por una serie de entradas, cuyas conexiones tienen cierto peso o importancia y que, si en conjunto son lo suficientemente \textit{estimulantes}---a pesar de su predisposición sensorial---, se activa y \textit{genera} una reacción.
+Un \textbf{perceptrón} es una red neuronal que consta de una sola neurona, como se muestra en la Figura~\ref{fig:perceptron}.
+Una neurona recibe señales por medio de una serie de entradas.
+Cada entrada tiene conexiones hacia la neurona, las cuales suelen tener distintos grados de influencia sobre la misma.
+Si en conjunto, las señales son lo suficientemente \textit{estimulantes}---a pesar de la predisposición sensorial de la neurona---ésta se activa y \textit{genera} una reacción.
 Podemos representar cada uno de sus componentes con símbolos matemáticos:
 \begin{itemize}
-    \item Un conjunto de \textbf{entradas} sensoriales $p_j$, donde cada una representa una característica o variable a tomar en cuenta
+    \item Un conjunto de \textbf{entradas} o receptores sensoriales $p_j$, donde cada uno representa una característica o variable a tomar en cuenta
     \item Un conjunto de \textbf{pesos} $w_{j}$, donde cada uno determina la importancia que cada entrada ejerce sobre la neurona
     \item Una predisposición sensorial o \textbf{sesgo} $b_i$, que es una cantidad que afecta a la capacidad de la neurona para reaccionar a los estímulos
     \item Una \textbf{función de activación} $f_i$, que genera una reacción a los estímulos que percibe
     \item Una \textbf{salida} o reacción $a_i$, que es generada por la neurona dados los estímulos de sus entradas
 \end{itemize}
 
+La suma de cada una de las señales multiplicadas por la influencia que tienen sobre la neurona, más la predisposición sensorial de la misma, es evaluada usando la función de activación de la $i$-ésima neurona para generar una reacción $a_i$:
 
+\begin{equation}
+    a_i = f_i\left( \sum_{j=1}^{R} w_jp_j + b_i \right)
+\end{equation}
 
-Describe cada uno de los siguientes lenguajes utilizando expresiones regulares genéricas. En dado caso de que el lenguaje no se pueda describir con una ER, menciona por qué. Posteriormente e independientemente de si tienes ER o no, escribe dos ejemplos de palabras aceptadas para cada lenguaje.
+donde $R$ es el número de entradas en la red.
 
-\begin{enumerate}[label=\tt \alph*)]
-    \itemsep0em
-    \item El lenguaje de las palabras en $\{a,b\}$ que empiezan con $a$ y terminan con $b$.
-    \item El lenguaje de las palabras en $\{0,1\}$ que son múltiplos de $100$.
-    \item El lenguaje de las palabras en $\{x, y\}$ que son de longitud impar o que terminan en $xxx$.
-    \item El lenguaje de las palabras en $\{0,1,2\}$ que tengan un $1$ en el centro, y sean simétricas.
-    \item El lenguaje de las palabras en $\{z : z \in \mathbb{N}, 0 \leq z \leq 9\}$ que son también denominaciones de billetes o monedas expedidas por el Banco de México y que están en circulación. Omite centavos y series especiales (Onzas de plata, Centenarios, etc.).
-    \item El lenguaje de las palabras en $\{a,b\}$ que tengan un número par de $b$s. (\textit{Hint: considera hacer un autómata si te parece muy complicado})
-\end{enumerate}
+\vspace{2.5ex}
 
-
-\section{Gramáticas Regulares (14 \% + 6 \%)}
-
-En \texttt{HTML}, le llamamos ``etiquetas'' a las \textit{keywords} para abrir o cerrar elementos de la página web.
-Una etiqueta siempre se escribe entre \textit{brackets} para iniciar el elemento, y la misma etiqueta pero con una diagonal al principio para finalizar el elemento.
-La etiqueta \verb|<html>...</html>| sirve para delimitar el contenido de la página web.
-
-\begin{enumerate}[label=\tt \alph*)]
-    \itemsep0em
-    \item Escribe una expresión regular para seleccionar las \textit{keywords} de inicio y fin de las listas ordenadas (\texttt{ol}) y no ordenadas (\texttt{ul}), incluyendo los brackets como parte de la selección (4 \%)
-    \item Convierte a AF (5 \%)
-    \item Convierte a Gramática \textbf{Regular} (no GLC) (5 \%)
-    \item Escribe el árbol de derivación para dos palabras válidas (+ 6\%)
-\end{enumerate}
-
-
-\section{Ambigüedad en GLCs (20\%)}
-
-Sea $G=(\{S\},\{\mathtt{if}, c, \mathtt{then}, \mathtt{else}, x\}, \{S \to x, S \to \mathtt{if} \, c \, \mathtt{then} \, S, S \to \mathtt{if} \, c \, \mathtt{then} \, S \, \mathtt{else} \, S\}, S)$ una gramática libre de contexto.
-
-\begin{enumerate}[label=\tt \alph*)]
-    \item Demuestra que $G$ es ambigua utilizando dos árboles de derivación diferentes para una misma frase (10 \%)
-    \item Expresa cada árbol de derivación en forma secuencial (usando $\implies$) (10 \%)
-\end{enumerate}
-
-
-\section{Gramáticas Libres de Contexto (30 \% +14 \%)}
-
-El \textit{Biologic Space Lab} está en problemas nuevamente.
-Debido a una brecha en un ducto de ventilación, ciertos parásitos lograron entrar a uno de los laboratorios de acceso restringido, en el cual se almacenaban muestras de ADN de especies inteligentes para fines taxonómicos.
-Algunos de los bancos de datos están corruptos debido a la infección, pero otros aún están a salvo.
-HQ te ha asignado la tarea de diseñar un sistema de control para identificar aquellas muestras de ADN que aún pueden rescatarse, y te ha enviado la siguiente información:
+Contesta para la Figura~\ref{fig:perceptron}:
 
 \begin{itemize}
-    \itemsep0em
-    \item Los parásitos tienen la capacidad de alterar la cadena de ADN, copiando y replicando ciertas subcadenas que consideran necesarias para la supervivencia mediante mutación.
-    \item Al parecer, el parásito replica el número de extremidades inferiores y de globos oculares de manera arbitraria.
-    \item Utilizando cerca de 20 Petabytes de información, se ha confirmado que el número de réplicas de subcadenas de ADN pertenecientes a los ojos nunca es el mismo que el de las extremidades inferiores en un mismo individuo---en un individuo mutado, el número final de ojos nunca es igual al número final de piernas.
-    \item Gracias al análisis de los datos, se determinó también que los parásitos sólo están afectando especies `aptas y balanceadas'; aquellas que tienen el mismo número de ojos que de piernas antes de la mutación.
+    \item ¿Cuántas entradas tiene la red? (2 \%)\hfill \veryshortresponserule
+    \item ¿Cuántos pesos tiene la red? (2 \%)\hfill \veryshortresponserule
+    \item ¿Cuántas neuronas tiene la red? (2 \%)\hfill \veryshortresponserule
+    \item ¿Cuántas funciones de activación tiene la red? (2 \%)\hfill \veryshortresponserule
+    \item ¿Cuántas salidas tiene la red? (2 \%)\hfill \veryshortresponserule
 \end{itemize}
 
-Además, dado a la gran bio-diversidad del BSL, HQ te sugiere lo siguiente:
+Para hacer el entrenamiento del modelo, el perceptrón toma ejemplos etiquetados---una serie de valores para cada entrada y un resultado esperado.
+Tras hacer la evaluación del ejemplo, el resultado obtenido se compara con el resultado esperado, y la diferencia entre ambos se toma como el \textit{error} en la predicción.
+Los pesos de la red se ajustan, siempre buscando reducir el error, y se continúa el proceso con otro ejemplo.
 
-\begin{tcolorbox}
-{\small Tenemos cerca de 900,000 especies en el databank.
-Es mejor enfocarse en encontrar las discrepancias en el número de genes en lugar de buscar una secuencia.
-Por favor, date prisa. No queremos perder 350 años de trabajo.}
-\end{tcolorbox}
+Después de unos cuántos (usualmente miles o incluso millones) de ejemplos, el perceptrón aprende un modelo general que trata de aproximar la mayoría de los ejemplos. Sin embargo, existen limitaciones de la arquitectura, y por ello se ha trabajado con arquitecturas más complejas.
+Por ejemplo, podemos organizar las neuronas en \textbf{capas}, de tal manera que podemos obtener una serie de reacciones de cada capa en lugar de una sola.
 
-Diseña un conjunto de reglas para generar subcadenas de ADN válidas que pudieran estar infectadas. Sugerencias:
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{single-layer-NN.pdf}
+    \caption{Red neuronal de una sola capa.}
+    \label{fig:single-layer}
+\end{figure}
 
-\begin{enumerate}[label=\tt \alph*)]
-    \item Genera el alfabeto de terminales (2 \%)
-    \item Describe (con notación de conjuntos o con palabras) el lenguaje aceptado por tu gramática (5 \%)
-    \item Genera las reglas de tu GLC (10 \%)
-    \item Describe formalmente tu GLC (5 \%)
-    \item Usando tu gramática y sus símbolos y reglas, escribe el árbol de derivación de un \textit{Dachora}, una especie de ave que tiene dos piernas y dos ojos (8 \%)
-    \item Dibuja un \textit{Dachora} (+4 \%)
-    \item Haz un Autómata de Pila para tu GLC (+10 \%)
+La Figura~\ref{fig:single-layer} ilustra una red neuronal de una sola capa, la cual tiene múltiples entradas y múltiples salidas.
+Bajo esta arquitectura, cada entrada $j$ tiene una conexión hacia cada neurona $i$.
+
+\vspace{2.5ex}
+
+Contesta para la Figura~\ref{fig:single-layer}:
+
+\begin{itemize}
+    \item ¿Cuántas entradas tiene la red? (2\%) \hfill \veryshortresponserule
+    \item ¿Cuántos pesos tiene la red? (2\%) \hfill \veryshortresponserule
+    \item ¿Cuántas neuronas tiene la red? (2\%) \hfill \veryshortresponserule
+    \item ¿Cuántas funciones de activación tiene la red? (2\%) \hfill \veryshortresponserule
+    \item ¿Cuántas salidas tiene la red? (2\%) \hfill \veryshortresponserule
+\end{itemize}
+
+Si te das cuenta, es posible \textit{agrupar} muchas de las variables en juego usando estructuras de datos.
+¿Qué estructura de datos usarías para representar los componentes de la nueva arquitectura?
+Describe la estructura de cada uno (5 \%)
+
+\begin{enumerate}
+    \itemsep2.5ex
+    \item \responserule
+    \item \responserule
+    \item \responserule
+    \item \responserule
+    \item \responserule
 \end{enumerate}
+
+Al trabajar todo de manera vectorial, podemos \textit{encadenar} capas para conseguir resultados más finos.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{multi-layer-NN.pdf}
+    \caption{Red neuronal de múltiples capas.}
+    \label{fig:mlp}
+\end{figure}
+
+La Figura~\ref{fig:mlp} ilustra cómo es el proceso de encadenamiento de capas, donde el vector de salidas de una capa es el vector de entradas de la siguiente capa.
+
+En este caso, el proceso de entrenamiento es el mismo, sin embargo las operaciones se pueden simplificar si trabajamos con vectores:
+
+\begin{equation}
+    \mathbf{a} = \mathbf{f}\left( W\mathbf{p} + \mathbf{b} \right) = \mathbf{q}
+\end{equation}
+
+Vale la pena considerar que una serie de ejemplos $P = \left[ \mathbf{p_i} \dots p_S \right]$ suele venir en forma matricial, con dimensiones $S \times R$, por lo que para poder multiplicar hay que transponer los ejemplos.
+
+A continuación se presentan algunos ejemplos $p$ etiquetados con sus resultados $t$ en la forma $P = \mathbf{t}$:
+
+\begin{align}
+    3p_1 + 6p_2 - 9p_3 & = 3 \\
+    2p_1 + 4p_2 - 8p_3 & = 0 \\
+   -2p_1 - 3p_2 + 4p_3 & = -1 \\
+    4p_1 + 3p_2 - 7p_3 & = -6 \\
+    5p_1 + 4p_2 - 9p_3 & = -7 \\
+    7p_1 + 7p_2 - 13p_3 & = -6 \\
+   -2p_1 - 5p_2 + 9p_3 & = -2 \\
+    -p_1 + 6p_2 + 2p_3 & = 22
+\end{align}
+
+Genera un sistema de ecuaciones lineales usando tres ecuaciones. Para seleccionarlas, utiliza el \textbf{último dígito de tu matrícula}$\mod 8$, enumerando las ecuaciones del 0 al 7 (35 \%)
+
+Considera ahora que tienes una de las siguientes matrices de pesos para la primera capa de una red neuronal con los siguientes datos:
+
+\[
+    W^0 = \begin{bmatrix}
+        1 & 2 & 2 \\
+        2 & 3 & 1 \\
+        4 & 2 & 2 \\
+        3 & 0 & 2
+    \end{bmatrix} \quad W^1=
+    \begin{bmatrix}
+        2 & 2 & 0 \\
+        2 & 1 & 1 \\
+        3 & 2 & 2 \\
+        5 & 2 & 4 \\
+        1 & 2 & 0
+    \end{bmatrix}
+\]
+
+Selecciona una de las dos matrices usando tu \textbf{número de equipo} $\mod 2$ y contesta:
+
+\begin{itemize}
+    \itemsep2.5ex
+    \item ¿Cuál es la longitud del vector de entradas $\mathbf{p}$ de tu matriz? (5 \%)\\ \responserule
+    \item ¿Cuántas neuronas tiene la primer capa de la red neuronal que te tocó? (5 \%)\\ \responserule
+\end{itemize}
+
+A continuación, toma la matriz de ejemplos $P$ (Ecuaciones~1.3--1.10) y calcula $P^T$ (5 \%)
+
+\vspace{2.5ex}
+
+Después, encuentra el vector de salidas de la primera capa ($\mathbf{a}$) considerando que la función de activación de cada neurona en dicha capa de tu red es la función identidad (es decir que $y = x$). \textit{\footnotesize Hint: la ecuación 1.2 es de vital importancia} (25 \%)
+
+
+\section*{Rescate (+5 \%)}
+
+¿Cuál es la principal diferencia entre la descomposición de la matriz de coeficientes entre el método Jacobi y el Gauss-Seidel?
 
 \vfill
 
