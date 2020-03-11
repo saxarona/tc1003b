@@ -179,7 +179,7 @@ donde $R$ es el número de entradas en la red.
 
 \vspace{2.5ex}
 
-Contesta para la Figura~\ref{fig:perceptron}:
+$\blacklozenge$ Contesta para la Figura~\ref{fig:perceptron}:
 
 \begin{itemize}
     \item ¿Cuántas entradas tiene la red? (2 \%)\hfill \veryshortresponserule
@@ -208,7 +208,7 @@ Bajo esta arquitectura, cada entrada $j$ tiene una conexión hacia cada neurona 
 
 \vspace{2.5ex}
 
-Contesta para la Figura~\ref{fig:single-layer}:
+$\blacklozenge$ Contesta para la Figura~\ref{fig:single-layer}:
 
 \begin{itemize}
     \item ¿Cuántas entradas tiene la red? (2\%) \hfill \veryshortresponserule
@@ -219,7 +219,8 @@ Contesta para la Figura~\ref{fig:single-layer}:
 \end{itemize}
 
 Si te das cuenta, es posible \textit{agrupar} muchas de las variables en juego usando estructuras de datos.
-¿Qué estructura de datos usarías para representar los componentes de la nueva arquitectura?
+
+$\blacklozenge$ ¿Qué estructura de datos usarías para representar los componentes de la nueva arquitectura?
 Describe la estructura de cada uno (5 \%)
 
 \begin{enumerate}
@@ -248,9 +249,9 @@ En este caso, el proceso de entrenamiento es el mismo, sin embargo las operacion
     \mathbf{a} = \mathbf{f}\left( W\mathbf{p} + \mathbf{b} \right) = \mathbf{q}
 \end{equation}
 
-Vale la pena considerar que una serie de ejemplos $P = \left[ \mathbf{p_i} \dots p_S \right]$ suele venir en forma matricial, con dimensiones $S \times R$, por lo que para poder multiplicar hay que transponer los ejemplos.
+Vale la pena considerar que una serie de ejemplos $P = \left[ \mathbf{p_i} \dots \mathbf{p}_S \right]$ suele venir en forma matricial, con dimensiones $S \times R$, por lo que para poder multiplicar hay que transponer los ejemplos.
 
-A continuación se presentan algunos ejemplos $p$ etiquetados con sus resultados $t$ en la forma $P = \mathbf{t}$:
+A continuación se presentan algunos ejemplos $\mathbf{p}$ etiquetados con sus resultados $t$ en la forma $P = \mathbf{t}$:
 
 \begin{align}
     3p_1 + 6p_2 - 9p_3 & = 3 \\
@@ -263,7 +264,7 @@ A continuación se presentan algunos ejemplos $p$ etiquetados con sus resultados
     -p_1 + 6p_2 + 2p_3 & = 22
 \end{align}
 
-Genera un sistema de ecuaciones lineales usando tres ecuaciones. Para seleccionarlas, utiliza el \textbf{último dígito de tu matrícula}$\mod 8$, enumerando las ecuaciones del 0 al 7 (35 \%)
+$\blacklozenge$ Genera un sistema de ecuaciones lineales usando tres ecuaciones. Para seleccionarlas, utiliza el \textbf{último dígito de tu matrícula}$\mod 8$, enumerando las ecuaciones del 0 al 7 (35 \%)
 
 Considera ahora que tienes una de las siguientes matrices de pesos para la primera capa de una red neuronal con los siguientes datos:
 
@@ -283,7 +284,7 @@ Considera ahora que tienes una de las siguientes matrices de pesos para la prime
     \end{bmatrix}
 \]
 
-Selecciona una de las dos matrices usando tu \textbf{número de equipo} $\mod 2$ y contesta:
+$\blacklozenge$ Selecciona una de las dos matrices usando tu \textbf{número de equipo} $\mod 2$ y contesta:
 
 \begin{itemize}
     \itemsep2.5ex
@@ -291,11 +292,13 @@ Selecciona una de las dos matrices usando tu \textbf{número de equipo} $\mod 2$
     \item ¿Cuántas neuronas tiene la primer capa de la red neuronal que te tocó? (5 \%)\\ \responserule
 \end{itemize}
 
-A continuación, toma la matriz de ejemplos $P$ (Ecuaciones~1.3--1.10) y calcula $P^T$ (5 \%)
+$\blacklozenge$ A continuación, toma la matriz de ejemplos $P$ (Ecuaciones~1.3--1.10) y calcula $P^T$ (5 \%)
 
 \vspace{2.5ex}
 
-Después, encuentra el vector de salidas de la primera capa ($\mathbf{a}$) considerando que la función de activación de cada neurona en dicha capa de tu red es la función identidad (es decir que $y = x$). \textit{\footnotesize Hint: la ecuación 1.2 es de vital importancia} (25 \%)
+$\blacklozenge$ Después, encuentra el vector de salidas de la primera capa ($\mathbf{a}$) considerando que la función de activación de cada neurona en dicha capa de tu red es la función identidad (es decir que $y = x$), y el vector de sesgos $\mathbf{b}$ es o bien
+$\mathbf{b^0} = \begin{bmatrix} 1 & 2 & -1 & 1 \end{bmatrix}^T$ o
+$\mathbf{b^1} = \begin{bmatrix} -1 & 0  & 0  & 2 & -1 \end{bmatrix}^T$. \textit{\footnotesize Hint: la ecuación 1.2 es de vital importancia} (25 \%)
 
 
 \section*{Rescate (+5 \%)}
