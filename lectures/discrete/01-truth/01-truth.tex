@@ -1,0 +1,309 @@
+\documentclass[spanish, c]{beamer}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[spanish, mexico]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{ragged2e}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\renewcommand{\indent}{\hspace*{2em}}
+
+% \usepackage{tikz}
+
+% \usetikzlibrary{fit, shapes, arrows}
+
+% \usepackage{courier}
+% \usepackage{subfigure}
+% \usepackage{enumerate}
+% \usepackage{algorithmic}
+% \usepackage{algorithm}
+
+% \usepackage{listings}
+% \usepackage{lstlinebgrd}
+
+\usetheme{Boadilla}
+\usefonttheme[onlymath]{serif}
+
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-editor]!#1!}
+\newcommand\blfootnote[1]{%
+\begingroup
+\renewcommand\thefootnote{}\footnote{#1}%
+\addtocounter{footnote}{-1}%
+\endgroup
+}
+
+\lstset
+{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = left,
+    frame = tb,
+}
+
+\lstdefinestyle{output}
+{
+    language = {},
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = none,
+    showtabs = false,
+   	showstringspaces = false,
+}
+
+% Sets the templates
+\definecolor{navyblue}{RGB}{0, 0, 128}
+\definecolor{crimson}{RGB}{128, 16, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamercolor{title}{fg=navyblue, bg=white}
+\setbeamercolor{frametitle}{fg=navyblue, bg=white}
+\setbeamercolor{structure}{fg=navyblue}
+\setbeamercolor{button}{fg=white,bg=navyblue}
+
+\setbeamercovered{transparent}
+
+\title{El estudio de la verdad}
+\subtitle{Modelación de la Ingeniería con Matemática Computacional \\ (TC1003B)}
+\author{
+    \texorpdfstring{
+        \begin{center}
+            M.C. Xavier Sánchez Díaz \\
+            \href{mailto:sax@tec.mx}{\texttt{sax@tec.mx}}
+        \end{center}
+    }
+    {M.C. Xavier Sánchez Díaz}
+}
+
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../../img/logo}}
+\date{}
+
+\begin{document}
+
+\setlength{\rightskip}{0pt}
+
+\begin{frame}[plain]
+    \titlepage        
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Del habla a las matemáticas I}
+
+\begin{frame}{La verdad}{Del habla a las matemáticas I}
+    
+    \begin{itemize}[<+->]
+        \itemsep2.5ex
+        \item ¿Qué es la verdad?
+        \item ¿Es posible decir siempre la verdad?
+        \item ¿Existe la \textit{verdad absoluta}?
+    \end{itemize}
+
+    \bigskip
+
+    \visible<4>{%
+        Para poder confiar en que estamos haciendo las cosas bien, es necesario siempre \textbf{actuar con la verdad}.
+    }
+
+\end{frame}
+
+\begin{frame}{Declaraciones}{Del habla a las matemáticas I}
+
+    ¿Cuál de los siguientes enunciados es una declaración? \pause
+
+    \begin{itemize}[<+->]
+        \itemsep1.5ex
+        \item \alert<11->{La vida es bella}
+        \item $x + 3 = 0$
+        \item Tanto hoy, como ayer\dots
+        \item \alert<12->{Los amorosos callan}
+        \item \alert<13->{Quiero un poco de pastel}
+        \item ¿Quieres un poco de pastel?
+        \item Pásame la botella
+        \item Toma que toma, diablo arrastrado
+        \item \alert<14->{La clave LADA de Monterrey es 81}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Declaraciones de a de veras}{Del habla a las matemáticas I}
+    
+    Las declaraciones pueden tener un valor de verdad. ¿Es cierto algo de esto? \pause
+
+    \bigskip
+
+    \begin{itemize}
+        \item La vida es bella
+        \item Los amorosos callan
+        \item Quiero un poco de pastel
+        \item La clave LADA de Monterrey es 81
+    \end{itemize} \pause
+
+    \bigskip
+
+    Cuando una declaración puede tener un valor de verdad, se le llama \alert{estatuto}.    
+
+\end{frame}
+
+\begin{frame}{Estatutos}{Del habla a las matemáticas I}
+
+    ¿Cuáles de los siguientes son estatutos? \pause
+
+    \begin{itemize}[<+->]
+        \item El sol sale por el este
+        \item Si terminan 10 \textit{problem sets} hoy, nos vamos temprano
+        \item Ya que tú eres un hombre y yo soy una mujer, ¿Por qué no vienes conmigo a mi costosa cama?\blfootnote{Ratón Esponja, Episodio 3}
+        \item Me bañaré rápido e iré a tu casa
+        \item Si me conoces, sabes que te quiero. Si no, seguirás tu camino
+        \item El pasto es más verde del otro lado de la cerca
+        \item Esta \textit{slide} es muy extensa
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Atomicidad de los estatutos}{Del habla a las matemáticas I}
+
+    Un estatuto \alert{atómico} o \textbf{primitivo} es aquél que no puede ser descompuesto en estatutos más pequeños. \pause
+
+    \bigskip
+
+    \begin{itemize}[<+->]
+        \item El pasto es más verde del otro lado de la cerca
+        \item Esta slide es muy extensa
+    \end{itemize}
+    
+    \visible<4->{Cuando una declaración se puede separar en estatutos más pequeños, se le conoce como \alert{estatuto molecular} (o \textbf{compuesto}).} \pause 
+
+    \begin{itemize}[<+->]
+        \item El sol sale por el este o el sol sale por el oeste {\tiny (Una de dos\dots)}
+        \item Me bañaré rápido e iré a tu casa
+        \item El pasto es más verde del otro lado de la cerca y esta slide es muy extensa
+    \end{itemize}
+\end{frame}
+
+\section{Del habla a las matemáticas II}
+
+\begin{frame}{Variables y conectivos}{Del habla a las matemáticas II}
+
+    Para darle más formalidad al asunto, emplearemos \textbf{variables atómicas} para denotar \alert{átomos}. \pause
+
+    \bigskip
+
+    \begin{center}
+        \Large
+        $P =$ El sol sale por el este
+
+        $Q =$ El sol sale por el oeste
+    \end{center} \pause
+
+    \bigskip
+
+    ¿Cómo las unimos?
+\end{frame}
+
+\begin{frame}{Variables y conectivos}{Del habla a las matemáticas II}
+    
+    Para conectar estatutos atómicos, usamos \alert{conectivos}: \pause
+
+    \bigskip
+
+    \begin{description}[<+->]
+        \itemsep3.5ex
+        \item \alert{Conjunción}: \\ \textit{Te quiero con limón \textbf<5->{y} sal.}
+        \item \alert{Disyunción}: \\ \textit{Su sola existencia me molesta. Es ella \textbf<6->{o} yo. Tú decides.}
+        \item \alert{Implicación}: \\ \textit{\textbf<7->{Si} sacas 90 en el examen, \only<7->{(\textbf{entonces})} apenas y pasas con 70. Ponte al tiro.}
+    \end{description}
+
+\end{frame}
+
+\begin{frame}{Operadores lógicos}{Del habla a las matemáticas II}
+
+    Cada \textbf{conectivo} tiene un \textbf{símbolo} en matemáticas: \pause
+
+    \bigskip
+
+    \begin{itemize}
+        \itemsep2.5ex
+        \item Para la conjunción (o el \textbf{``y''}), usamos el símbolo $\wedge$
+        \item Para la disyunción (o la \textbf{``o''}), usamos el símbolo $\vee$
+        \item Para la implicación (o el ``\textbf{si} \dots \textbf{entonces}'' \dots), usamos el símbolo $\implies$
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Operadores lógicos}{Del habla a las matemáticas II}
+
+    Sean $P$ el estatuto \textit{Te quiero con limón} y $Q$ el estatuto \textit{Te quiero con sal}. ¿Cuál es la \textbf{conjunción} de $P$ con $Q$? \pause
+
+    \bigskip
+
+    \begin{exampleblock}{Conjunción}
+            $P \wedge Q$, que significa ``Te quiero con limón y te quiero con sal''.
+    \end{exampleblock} \pause
+
+    \bigskip
+
+    ¿Cómo son la disyunción y la implicación entre $P$ y $Q$? \pause ¿Es lo mismo $P \implies Q$ que $Q \implies P$?
+
+\end{frame}
+
+\begin{frame}{Operadores lógicos}{Del habla a las matemáticas II}
+    Además de los conectivos que ya vimos, existen \textbf{otros operadores} útiles: \pause
+
+    \bigskip
+
+    \begin{description}[<+->]
+        \item \alert{Negación}: \\ \textit{El sol no sale por el oeste}
+        \item \alert{Doble implicación} \\ \textit{$2x$ es mayor que $100$ si y sólo si $x$ vale más de 50}
+    \end{description}
+
+    \bigskip
+
+    \visible<4->{%
+        $\neg P$ significa \textit{no es cierto que} $P$. ¿Qué es $P$?
+
+        \bigskip
+
+        $P \iff Q$ es la doble implicación entre P y Q. ¿Qué pasa con este operador?
+    }
+\end{frame}
+
+
+% What is control flow
+% why is it important
+% does it exist in math?
+% how to represent it
+% how to represent it in matlab
+% practical cases
+
+% \section*{Referencias}
+
+% \begin{frame}[t]{Referencias}
+    % \nocite{bibID01}
+    % \nocite{bibID02}
+
+    % \bibliographystyle{IEEE}
+    % \bibliography{biblio}
+% \end{frame}
+
+\end{document}
