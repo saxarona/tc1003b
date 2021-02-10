@@ -1,0 +1,390 @@
+\documentclass[spanish, c]{beamer}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[spanish, mexico]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{ragged2e}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\renewcommand{\indent}{\hspace*{2em}}
+
+% \usepackage{tikz}
+
+% \usetikzlibrary{fit, shapes, arrows}
+
+% \usepackage{courier}
+% \usepackage{subfigure}
+% \usepackage{enumerate}
+% \usepackage{algorithmic}
+% \usepackage{algorithm}
+
+% \usepackage{listings}
+% \usepackage{lstlinebgrd}
+
+\usetheme{Boadilla}
+\usefonttheme[onlymath]{serif}
+
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-editor]!#1!}
+\newcommand\blfootnote[1]{%
+\begingroup
+\renewcommand\thefootnote{}\footnote{#1}%
+\addtocounter{footnote}{-1}%
+\endgroup
+}
+
+\lstset
+{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = left,
+    frame = tb,
+}
+
+\lstdefinestyle{output}
+{
+    language = {},
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = none,
+    showtabs = false,
+   	showstringspaces = false,
+}
+
+% Sets the templates
+\definecolor{navyblue}{RGB}{0, 0, 128}
+\definecolor{crimson}{RGB}{128, 16, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamercolor{title}{fg=navyblue, bg=white}
+\setbeamercolor{frametitle}{fg=navyblue, bg=white}
+\setbeamercolor{structure}{fg=navyblue}
+\setbeamercolor{button}{fg=white,bg=navyblue}
+
+\setbeamercovered{transparent}
+
+\title{Trabajando con la verdad}
+\subtitle{Modelación de la Ingeniería con Matemática Computacional \\ (TC1003B)}
+\author{
+    \texorpdfstring{
+        \begin{center}
+            M.C. Xavier Sánchez Díaz \\
+            \href{mailto:sax@tec.mx}{\texttt{sax@tec.mx}}
+        \end{center}
+    }
+    {M.C. Xavier Sánchez Díaz}
+}
+
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../../img/logo}}
+\date{}
+
+\begin{document}
+
+\setlength{\rightskip}{0pt}
+
+\begin{frame}[plain]
+    \titlepage        
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{De los símbolos al significado}
+
+\begin{frame}{Repaso}{De los símbolos al significado}
+    Hasta ahora hemos revisado lo siguiente:
+
+    \begin{itemize}[<+->]
+        \item La conjunción (Te quiero con limón \alert{y} con sal)
+        \item La disyunción (Coca \alert{o} Pepsi; cualquiera de las dos está bien)
+        \item La negación (\alert{No} es cierto que ella te odie)
+        \item La implicación (\alert{Si} te aplicas, \alert{entonces} vas a pasar el semestre sin problemas)
+    \end{itemize}
+
+    \bigskip \pause
+
+    Además, también revisamos
+
+    \begin{itemize}[<+->]
+        \item Variables: $P, Q, R$
+        \item Estatutos atómicos $P$ o estatutos compuestos $P \implies Q$
+        \item Conectivos y operadores lógicos: $\vee, \wedge, \implies, \iff, \neg$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Las tablas de verdad I}{De los símbolos al significado}
+    Para poder entender de dónde sale una \alert{tabla de verdad}, primero hay que entender cómo afecta cada operador a cada estatuto. \pause
+
+    \bigskip
+
+    Sabemos que si tenemos $P \wedge Q$ significa que tenemos que cumplir con ambas condiciones para decir la verdad.
+    ¿Qué pasa en el siguiente enunciado? \pause
+
+    \bigskip
+
+    \[\neg P \wedge Q\] \pause
+
+    ¿Cuál de las siguientes preguntas es la que representa al enunciado anterior? \pause
+
+    \begin{itemize}[<+->]
+        \item No tengo hambre y estoy enojado
+        \item Ni tengo hambre, ni estoy enojado
+        \item Tengo hambre y no estoy enojado
+        \item No es cierto que tenga hambre y esté enojado
+    \end{itemize} \pause
+
+    ¿A qué está afectando el $\neg$?
+\end{frame}
+
+\begin{frame}{Aridad}{De los símbolos al significado}
+
+    El término \alert{aridad} hace referencia a \textbf{cuántos posibles valores} puede tomar \textit{algo}. \pause
+
+    \bigskip
+
+    Como ejemplo, tenemos el operador $\vee$, que es un operador \alert{binario} (\textit{bi} de 2), puesto a que necesita 2 átomos para operar: \pause
+
+    \bigskip
+
+    \begin{center}
+        \alert<4>{Esto} o \alert<5>{esto otro} \pause
+    \end{center}
+
+    \bigskip
+
+    \visible<6->{
+        \begin{itemize}
+            \item ¿Qué otros operadores conoces que sean \textbf{binarios}?
+            \item ¿Cuántos átomos necesita el $\neg$ para operar?
+            \item ¿Cuántos valores posibles puede tomar una variable \textbf{atómica}?
+        \end{itemize}
+    }
+
+\end{frame}
+
+\begin{frame}{Las tablas de verdad II}{De los símbolos al significado}
+
+    Una \alert{tabla de verdad} es una manera \textit{sencilla} de recordar cómo funcionan los conectivos lógicos. \pause
+
+    \bigskip
+
+    Dado a que las variables \textbf{atómicas} (también llamadas variables \textit{booleanas}) son \textbf{binarias}\dots \pause
+    
+    \begin{itemize}[<+->]
+        \item ¿Cuántos posibles \textit{outcomes} tenemos para una sola variable $P$?
+        \item ¿Cuántos outcomes tenemos para $P \wedge Q$?
+        \item ¿De cuántas posibles \textit{maneras} podemos llegar a los posibles outcomes de $P \wedge Q$?
+    \end{itemize} \pause
+
+    \bigskip
+    
+    El número de renglones de una tabla de verdad \textbf{siempre es par}.
+
+\end{frame}
+
+\section{Detalle de tablas de verdad}
+
+\begin{frame}{$P$}{Detalle de tablas de verdad}
+
+    La tabla de verdad de $P$ consta de todos sus posibles valores: \pause
+
+\begin{table}[H]
+    \begin{tabular}{@{}l@{}}
+    \toprule
+    $P$ \\ \midrule
+    T \\
+    F \\ \bottomrule
+    \end{tabular}
+\end{table} \pause
+
+\begin{itemize}[<+->]
+    \item Tiene \textbf{dos} renglones puesto a que es \textbf{una sola variable} que puede tomar \textbf{dos valores}
+    \item Equivale a la \textbf{presencia} o \textbf{ausencia} de una señal: \textit{prendido} o bien \textit{apagado}
+    \item Ejemplo: \textit{Está lloviendo}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{$\neg P$}{Detalle de tablas de verdad}
+
+    La tabla de verdad de $\neg P$ consta de los posibles valores de $P$ y por consiguiente, los valores de $\neg P$, que es lo contrario a eso: \pause
+
+\begin{table}[H]
+    \begin{tabular}{@{}cc@{}}
+    \toprule
+    $P$ & $\neg P$ \\ \midrule
+    T   & F        \\
+    F   & T        \\ \bottomrule
+    \end{tabular}
+\end{table} \pause
+
+\begin{itemize}[<+->]
+    \item ¿Cuántos renglones tiene?
+    \item Equivale \textit{lo contrario} de lo que sea que valga $P$
+    \item Ejemplo: \textit{\textbf{no es cierto que} está lloviendo}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{$P \vee Q$}{Detalle de las tablas de verdad}
+
+    La tabla de verdad de $P \vee Q$ consta de los posibles valores de $P$, de $Q$ y de $P \vee Q$:
+
+
+\begin{table}[H]
+    \begin{tabular}{@{}ccc@{}}
+    \toprule
+    $P$ & $Q$ & $P \vee Q$ \\ \midrule
+    T   & T    & T          \\
+    T   & F    & T          \\
+    F   & T    & T          \\
+    F   & F    & F          \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{itemize}
+    \item 4 renglones
+    \item Ejemplo: \textit{Coca o pepsi}
+    \item Con cualquier que lleves, ya cumpliste. La única manera de no cumplir es que no lleves ninguna de las dos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{$P \wedge Q$}{Detalle de las tablas de verdad}
+
+    La tabla de verdad de $P \wedge Q$ consta de los posibles valores de $P$, de $Q$ y de $P \wedge Q$:
+    
+    \begin{table}[H]
+        \begin{tabular}{@{}ccc@{}}
+        \toprule
+        $P$ & $Q$ & $P \wedge Q$ \\ \midrule
+        T   & T    & T          \\
+        T   & F    & F          \\
+        F   & T    & F          \\
+        F   & F    & F          \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \begin{itemize}
+        \item 4 renglones
+        \item Ejemplo: \textit{Sin leche y sin azúcar}
+        \item La única manera de cumplir es si ambas son ciertas.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{$P \implies Q$}{Detalle de las tablas de verdad}
+
+    La tabla de verdad de $P \implies Q$ consta de los posibles valores de $P$, de $Q$ y de $P \implies Q$:
+    
+    \begin{table}[H]
+        \begin{tabular}{@{}ccc@{}}
+        \toprule
+        $P$ & $Q$ & $P \implies Q$ \\ \midrule
+        T   & T    & T          \\
+        T   & F    & F          \\
+        F   & T    & T          \\
+        F   & F    & T          \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \begin{itemize}
+        \item 4 renglones
+        \item Ejemplo: \textit{Si estudias, pasarás sin problemas el semestre}
+        \item Si la hipótesis es verdadera, y no ocurre lo que dices, entonces mentías
+        \item Si la hipótesis es falsa, puedo concluir cualquier cosa
+    \end{itemize}
+
+\end{frame}
+
+\section{Equivalencias y leyes}
+
+\begin{frame}{Jerarquía de operaciones lógicas}{Equivalencias y leyes}
+    
+    En orden de fuerza de cohesión, tenemos lo siguiente:
+
+    \begin{enumerate}[<+->]
+        \item $\neg$
+        \item $\wedge, \vee$
+        \item $\implies$
+        \item $\iff$
+    \end{enumerate} \pause
+
+    Es decir que
+
+    $$P \wedge Q \implies \neg R$$
+
+    Si ($P$ y $Q$ son ciertas) entonces  (No es cierto que ($R$)).
+
+\end{frame}
+
+\begin{frame}{Equivalencias}{Equivalencias y leyes}
+
+    Dos enunciados $P$ y $Q$ son \alert{equivalentes} ($P \equiv Q$) si sus tablas de verdad son iguales. \pause
+
+    \bigskip
+
+    \begin{enumerate}
+        \item Construye la tabla de verdad de $P \implies Q$
+        \item Construye la tabla de verdad de $Q \implies P$
+        \item ¿Qué obtienes con la \textbf{conjunción} de los enunciados 1 y 2?
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}{¿Cómo sé qué es cierto y qué no?}{Equivalencias y leyes}
+
+    Si $P$ y $Q$ son variables de verdad, $T$ es siempre verdadero y $F$ es siempre falso, entonces \dots \pause
+
+    \begin{itemize}[<+->]
+        \item $P \implies Q \equiv \neg P \vee Q$
+        \item $\neg(\neg P) \equiv P$
+        \item $Q \vee P \equiv P \vee Q$
+        \item $Q \wedge P \equiv P \wedge Q$
+        \item $\neg(P \vee Q) \equiv \neg P \wedge \neg Q$
+        \item $\neg(P \wedge Q) \equiv \neg P \vee \neg Q$
+        \item $(P \implies Q) \wedge (Q \implies P) \equiv P \iff Q$
+        \item $P \vee P \equiv P$
+        \item $P \wedge P \equiv P$
+        \item $P \vee T \equiv T$
+        \item $P \wedge T \equiv P$
+        \item $P \vee F \equiv P$
+        \item $P \wedge F \equiv F$
+    \end{itemize}
+
+\end{frame}
+
+% What is control flow
+% why is it important
+% does it exist in math?
+% how to represent it
+% how to represent it in matlab
+% practical cases
+
+% \section*{Referencias}
+
+% \begin{frame}[t]{Referencias}
+    % \nocite{bibID01}
+    % \nocite{bibID02}
+
+    % \bibliographystyle{IEEE}
+    % \bibliography{biblio}
+% \end{frame}
+
+\end{document}
