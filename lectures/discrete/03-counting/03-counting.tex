@@ -1,0 +1,461 @@
+\documentclass[spanish, c]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, mexico]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{ragged2e}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{venndiagram}
+
+\renewcommand{\indent}{\hspace*{2em}}
+
+% \usetikzlibrary{fit, shapes, arrows}
+
+% \usepackage{courier}
+% \usepackage{subfigure}
+% \usepackage{enumerate}
+% \usepackage{algorithmic}
+% \usepackage{algorithm}
+
+% \usepackage{listings}
+% \usepackage{lstlinebgrd}
+
+\usetheme{Boadilla}
+\usefonttheme[onlymath]{serif}
+
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-editor]!#1!}
+\newcommand\blfootnote[1]{%
+\begingroup
+\renewcommand\thefootnote{}\footnote{#1}%
+\addtocounter{footnote}{-1}%
+\endgroup
+}
+
+\lstset
+{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = left,
+    frame = tb,
+}
+
+\lstdefinestyle{output}
+{
+    language = {},
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = none,
+    showtabs = false,
+   	showstringspaces = false,
+}
+
+% Sets the templates
+\definecolor{navyblue}{RGB}{0, 0, 128}
+\definecolor{crimson}{RGB}{128, 16, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamercolor{title}{fg=navyblue, bg=white}
+\setbeamercolor{frametitle}{fg=navyblue, bg=white}
+\setbeamercolor{structure}{fg=navyblue}
+\setbeamercolor{button}{fg=white,bg=navyblue}
+
+\setbeamercovered{transparent}
+
+\title{Conjuntos, colecciones y enumeración}
+\subtitle{Modelación de la ingeniería con Matemática Computacional \\ (TC1003B)}
+\author{
+    \texorpdfstring{
+        \begin{center}
+            M.C. Xavier Sánchez Díaz \\
+            \href{mailto:sax@tec.mx}{\texttt{sax@tec.mx}}
+        \end{center}
+    }
+    {M.C. Xavier Sánchez Díaz}
+}
+
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../../img/logo}}
+\date{}
+
+\begin{document}
+
+\setlength{\rightskip}{0pt}
+
+\begin{frame}[plain]
+    \titlepage        
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Definición y propiedades}
+
+\begin{frame}{¿Qué es un conjunto?}{Definición y propiedades de los conjuntos}
+
+    Un \alert{conjunto} es un concepto abstracto, construido para referirse a una \textbf{colección} de \textbf{elementos}. \pause
+
+    \bigskip
+
+    Usualmente representamos los \alert{conjuntos} con letras mayúsculas (usualmente usando letras próximas a la $A$), y delimitamos sus contenidos con llaves (\textit{curly brackets}):
+
+    \bigskip
+
+    \begin{exampleblock}{Ejemplo}
+        $A$ es el conjunto de los primeros cinco \textbf{números naturales}, es decir aquellos que \textit{nos sirven para contar}:
+        $$A = \{1, 2, 3, 4, 5\}$$    
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}{¿Qué es un conjunto?}{Definición y propiedades de los conjuntos}
+    Un \textbf{conjunto} puede \alert{enumerarse} o \alert{describirse}:
+
+    \bigskip
+
+    \begin{exampleblock}{Enumeración}
+        $$A = \{1, 2, 3, 4, 5 \}$$
+    \end{exampleblock}
+
+    \bigskip
+
+    \begin{exampleblock}{Descripción}
+        \begin{itemize}
+            \item $A = $ el conjunto de los primeros cinco números naturales
+            \item $B = $ el conjunto de personas en este salón
+            \item $C = $ el conjunto de estudiantes del Campus Monterrey
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}{¿Qué es un conjunto?}{Definición y propiedades de los conjuntos}
+    Un \textbf{conjunto} es una colección en la que \alert{no existe orden alguno}:
+    \bigskip
+    \begin{exampleblock}{Ejemplo}
+        Si $A = \{1, 2, 3, 4, 5\}$ y $B = \{2, 3, 1, 5, 4\}$\dots
+
+        \begin{itemize}
+            \item ¿Cuál de los dos es el conjunto de los cinco primeros números naturales?
+            \item ¿Cuáles son los elementos del primer conjunto y cuáles son los del segundo?
+        \end{itemize}
+    \end{exampleblock}
+
+    Podemos usar el símbolo $\in$ para denotar \textit{pertenencia}, e.g. $2 \in A$ significa que el 2 es un elemento \textit{que pertenece} a $A$ o \textit{que está} en $A$.
+\end{frame}
+
+\begin{frame}{¿Qué es un conjunto?}{Definición y propiedades de los conjuntos}
+    
+    Podemos \textbf{contar los elementos} que hay dentro de un conjunto.
+    A la \textbf{cantidad de elementos} dentro de un conjunto le llamamos \alert{cardinalidad}. \pause
+
+    \bigskip
+
+    \begin{exampleblock}{Ejemplo}
+        Si $A = \{1, 2, 3, 4, 5\}$\dots
+
+        \begin{itemize}
+            \item \textbf{Q}: ¿Cuál es la cardinalidad de $A$?
+            \item \textbf{A}: 5
+        \end{itemize}
+    \end{exampleblock} \pause
+
+    \begin{block}{Nota}
+        Aunque es poco común, a veces pueden observarse conjuntos con elementos repetidos.
+        Si este fuera el caso, asume que sólo existe una copia de cada elemento.
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{¿Qué es un conjunto?}{Definición y propiedades de los conjuntos}    
+    \begin{center}
+        \Huge
+        Story time: \textit{conjuntos finitos e infinitos}
+    \end{center}
+\end{frame}
+
+\begin{frame}{¿Qué es un conjunto?}{Definición y propiedades de los conjuntos}
+    Para denotar la \textbf{cardinalidad} de un conjunto \textit{contable}, usualmente usamos el símbolo $\#(A)$, mientras que usamos dos barras verticales para denotar la cardinalidad de un conjunto no contable.
+
+    \begin{exampleblock}{Ejemplo}
+        Si $A = \{1, 2, 3, 4, 5\}$ entonces $\#(A)= 5$ o bien $\vert A \vert = 5$
+    \end{exampleblock} \pause
+
+    Algunos autores usan una notación; otros, otra. No importa cuál usemos, intentemos ser consistentes.
+\end{frame}
+
+\section{Operaciones con conjuntos}
+
+\begin{frame}{Inclusión}{Operaciones con conjuntos}
+    Podemos \textbf{comparar} dos conjuntos en cuanto a tamaño, pero también podemos saber si uno está \alert{incluido} dentro de otro. \pause
+
+    \begin{exampleblock}{Ejemplo}
+        Si $A = $ el conjunto de habitantes de Nuevo León y $B = $ es el conjunto de habitantes de Monterrey, entonces sabemos que $B$ es un \alert{subconjunto} de $A$.
+    \end{exampleblock} \pause
+
+    Usamos la notación $B \subseteq A$ para decir que $B$ es un \alert{subconjunto} de $A$; \textit{cada elemento de $B$ está en $A$}\dots \pause
+
+    \bigskip
+
+    {\Large PERO ESPERA}
+\end{frame}
+
+\begin{frame}{Inclusión}{Operaciones con conjuntos}
+
+    Si $A = $ el conjunto de habitantes de Nuevo León y $B = $ es el conjunto de habitantes de Monterrey, entonces sabemos que $B$ es un \alert{subconjunto \textbf{propio}} de $A$: \pause
+
+    \begin{block}{Inclusión propia}
+        \begin{itemize}
+            \item Si \textbf{todos} los elementos de $B$ están en $A$, sabemos que $B \subseteq A$.
+            \item Si \textbf{todos} los elementos de $B$ están en $A$, pero no todos los elementos de $A$ están en $B$, entonces $B \subset A$
+        \end{itemize}        
+    \end{block}
+
+    A esto último se le llama inclusión propia (que es el caso de los de Monterrey y los de Nuevo León), y da \textit{más información} que la simple inclusión.
+
+    \bigskip
+    
+    {\Large Mini-story time: \textit{orden estricto}}
+
+\end{frame}
+
+\begin{frame}{Identidad}{Operaciones con conjuntos}
+
+    ¿Qué información tenemos en cada caso? Reflexiona un momento\dots \pause
+
+    \bigskip
+
+    \begin{itemize}[<+->]
+        \item $A \subseteq B$
+        \item $B \subseteq A$
+        \item $A \subseteq B$ y $B \subseteq A$
+    \end{itemize} \pause
+
+    Cuando dos conjuntos tienen lo mismo, decimos que son \alert{idénticos} {\tiny (duh)}.
+
+    \bigskip \pause
+
+    Observa la diferencia entre $A \subseteq B$ y $A \subset B$.
+\end{frame}
+
+\begin{frame}{Más sobre subconjuntos}{Operaciones con conjuntos}
+    \begin{center}
+        {\LARGE
+        ¿Cuántos subconjuntos posibles puedes enumerar para el conjunto $A = \{2, 4, 6, 8, 10\}$?}
+    
+        \bigskip
+
+        \textit{Hint: considera las distintas maneras de meter sus elementos a una sub-caja.}
+    \end{center}
+\end{frame}
+
+\begin{frame}{El Conjunto Potencia}{Operaciones con conjuntos}
+    El \alert{conjunto potencia}  de $A$, denotado por $\wp(A)$, es el \textbf{conjunto de todos los posibles subconjuntos} en $A$. \pause
+
+    \bigskip
+
+    \begin{theorem}
+        $\vert \wp(A) \vert = 2^{\vert A \vert}$.
+    \end{theorem} \pause
+
+    \bigskip
+
+    Puedes enumerar todos los elementos de $\wp(A)$ si $A = \{1, 2, 3, 4\}$?
+\end{frame}
+
+\begin{frame}{El conjunto vacío}{Operaciones con conjuntos}
+    Cualquier conjunto $A$ el cual no tiene elementos, i.e. $\vert A \vert = 0$ es un \alert{conjunto vacío}. \pause
+
+    \bigskip
+
+    El conjunto vacío, usualmente representado como $\emptyset$ o $\{\}$ es una parte \textbf{esencial} de la teoría de conjuntos: \pause
+
+    \begin{itemize}[<+->]
+        \item Es siempre un subconjunto de \textbf{cualquier conjunto}, i.e., $\emptyset \subset A$
+        \item Es equiparable a \textit{la nada}, que es distinto del 0.
+    \end{itemize} \pause
+
+    \bigskip
+
+    {\Large Mini story time: \textit{null vs 0}}
+
+\end{frame}
+
+\begin{frame}{La lógica en los conjuntos}{Operaciones con conjuntos}
+    Podemos conectar el tema de \textbf{lógica proposicional} con los conjuntos de muchas maneras.
+    La primera de ella es para \alert{describir} los conjuntos. \pause
+
+    \begin{exampleblock}{Ejemplo}
+        El conjunto $A$ de los primeros 5 números naturales, podemos describirlo \textit{formalmente} como
+        $$A = \{n \, \mid \, n \in \mathbb{N} \wedge n \leq 5 \}$$
+    \end{exampleblock} \pause
+
+    \begin{block}{Nota}
+        Algunos autores usan $\mid$ y otros $:$.
+        Cualquiera de los dos jala. Luego veremos aplicaciones extras de cada símbolo.
+    \end{block}
+    \bigskip
+    {\Large Mini story time: \textit{$\mathbb{N}$} y uso de , y ;}
+\end{frame}
+
+\begin{frame}{La lógica en los conjuntos: Intersección}{Operaciones con conjuntos}
+
+    De igual manera, existe una \textbf{correspondencia} de cada uno de los operadores lógicos que vimos con \textbf{operaciones con conjuntos}: \pause
+
+    \bigskip
+
+    \begin{block}{Intersección y Conjunción}
+        $$x \in A \wedge x \in B \vdash x \in A \cap B$$
+    \end{block} \pause
+
+    \bigskip
+
+    ¿Qué significa esto? \pause
+
+    \bigskip
+
+    La intersección, así como la conjunción, es asociativa, conmutativa y distributiva sobre la unión.
+
+\end{frame}
+
+\begin{frame}{Diagramas de Venn}{Operaciones con conjuntos}
+
+    Un diagrama de Venn es una manera efectiva de ilustrar las relaciones entre dos conjuntos. \pause
+
+    \begin{center}
+        \begin{venndiagram2sets}
+            \fillACapB
+        \end{venndiagram2sets}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}{La lógica en los conjuntos: Unión}{Operaciones con conjuntos}
+
+    \begin{block}{Unión y Disyunción}
+        $$x \in A \vee x \in B \vdash x \in A \cup B$$
+    \end{block}
+
+    \bigskip
+
+    La unión, así como la disyunción, es asociativa, conmutativa y distributiva sobre la intersección.
+
+\end{frame}
+
+\begin{frame}{La lógica en los conjuntos: Complemento}{Operaciones con conjuntos}
+    \begin{block}{Complemento y Negación}
+        $$x \notin A \vdash x \in \complement(A)$$
+    \end{block}
+    
+    \bigskip
+
+    Para poder contextualizar el \alert{complemento} de $A$ como \textit{todo aquello que no es } $A$, hay que delimitar qué es \textit{todo}. A ese \textit{todo} le llamamos \alert{universo}, y es usualmente representado con la letra $U$.
+
+    \bigskip
+
+    {\Large Mini story time: \textit{Proofwiki Complement definition\blfootnote{\url{https://proofwiki.org/wiki/Definition:Set\_Complement}}}}
+\end{frame}
+
+\begin{frame}{Operaciones adicionales: Diferencia}{Operaciones con conjuntos}
+    La idea de tener un \textbf{universo} nos deja pensando en que el \textbf{complemento} de un conjunto $A$ es la \alert{diferencia} del \textbf{universo menos} $A$:
+
+    \begin{block}{Diferencia}
+        $$\complement(A) \equiv U - A \equiv U \setminus A$$
+    \end{block}
+
+    \bigskip
+
+    \begin{block}{Ejemplo: diferencia}
+        Si el universo consta de dos conjuntos $A$ y $B$, entonces
+        $$x \in A \wedge x \not \in B \vdash x \in A \setminus B$$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Operaciones adicionales: Diferencia simétrica}{Operaciones con conjuntos}
+    La \alert{diferencia simétrica} es una \textit{diferencia mutuamente excluyente}:
+
+    \bigskip
+
+    \begin{block}{Diferencia simétrica}
+        Si el universo consta de dos conjuntos $A$ y $B$, entonces
+        $$(x \in A \wedge x \not \in B) \vee x (\in B \wedge x \not \in A) \vdash x \in A \oplus B$$
+    \end{block} \pause
+
+    \bigskip
+
+    ¿Cuál sería el diagrama de Venn para esta operación?
+\end{frame}
+
+\section{Equivalencias y leyes de conjuntos}
+
+\begin{frame}{Equivalencias}{Equivalencias y leyes de conjuntos}
+
+    \begin{enumerate}
+        \item $A \cup A \equiv A$
+        \item $A \cap A \equiv A$
+        \item $A \cup B \equiv B \cup A$
+        \item $A \cap B \equiv B \cap A$
+        \item $A \cup (B \cup C) \equiv (A \cup B) \cup C$
+        \item $A \cap (B \cap C) \equiv (A \cap B) \cap C$
+        \item $\complement(A \cup B) \equiv \complement(A) \cap \complement(B)$
+        \item $\complement(A \cap B) \equiv \complement(A) \cup \complement(B)$
+        \item $A \cap (A \cup B) \equiv A \equiv A \cup (A \cap B)$
+        \item $A \cap (B \cup C) \equiv (A \cap B) \cup (A \cap C)$
+        \item $A \cup (B \cap C) \equiv (A \cup B) \cap (A \cup C)$
+        \item $\complement(A) \cap A \equiv \emptyset$
+        \item $\complement(\complement(A)) = A$
+        \item $A \cup \emptyset \equiv A$
+        \item $A \cap \emptyset \equiv \emptyset$
+    \end{enumerate}
+\end{frame}
+
+% What is a set
+% Why are sets important
+% Example of sets
+% Sets operations
+%% Inclusion
+%% Identity and proper inclusion
+% Cardinality
+% Venn Diagrams
+% The Empty Set
+% Disjoint Sets
+% Boolean operations on Sets
+%% Intersection vs Logical Conjuction
+%% Union vs Logical Disjunction
+%% Set Difference
+%% Extra: Symmetric Difference
+%% Set Complement
+% Power Set
+% Examples on set operations
+% Describing a set
+% 
+
+
+% \section*{Referencias}
+
+% \begin{frame}[t]{Referencias}
+    % \nocite{bibID01}
+    % \nocite{bibID02}
+
+    % \bibliographystyle{IEEE}
+    % \bibliography{biblio}
+% \end{frame}
+
+\end{document}
