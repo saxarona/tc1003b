@@ -100,7 +100,7 @@
     {M.C. Xavier Sánchez Díaz}
 }
 
-\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../img/logo}}
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../../img/logo}}
 \date{}
 
 \begin{document}
@@ -583,14 +583,14 @@
 \begin{frame}{Inversión de matrices}{Ecuaciones y matrices}
 
     Digamos que $A = \begin{bmatrix*}
-        1 & 2 \\ 3 & -5
+        1 & -2 \\ 3 & -5
     \end{bmatrix*}$, y estamos buscando una matriz $B$ \textbf{de las mismas dimensiones} de tal manera que $AB = I_{2 \times 2}$: \pause
 
     \bigskip
 
     \[
         \begin{bmatrix*}
-            1 & 2 \\
+            1 & -2 \\
             3 & -5
         \end{bmatrix*}
         \begin{bmatrix*}
@@ -615,14 +615,12 @@
             3 \cdot b_{12} - 5 \cdot b_{22} = 1
         \end{align} \pause
 
-        ¿Puedes resolver el sistema? \pause \quad \quad {\scriptsize(Spoiler alert: sí puedes)}
+        ¿Puedes resolver los dos sistemas de ecuaciones? \pause \quad \quad {\scriptsize(Spoiler alert: sí puedes)}
 
         \bigskip
 
-        Si el sistema tiene solución, entonces las \textit{variables} serán usadas para construir una nueva matriz que es la \alert{inversa} de $A$.
+        Si los sistemas tienen solución, entonces las \textit{variables} serán usadas para construir una nueva matriz que es la \alert{inversa} de $A$.
 \end{frame}
-
-
 
 % Específicamente, la regla 3 puede verse como $R_i = R_i - \frac{a_{ik}}{a_{jk}}R_j$.
 
