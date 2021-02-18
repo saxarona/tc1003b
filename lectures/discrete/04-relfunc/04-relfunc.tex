@@ -1,0 +1,532 @@
+\documentclass[spanish, c]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, mexico]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{ragged2e}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{venndiagram}
+
+\renewcommand{\indent}{\hspace*{2em}}
+
+% \usetikzlibrary{fit, shapes, arrows}
+
+% \usepackage{courier}
+% \usepackage{subfigure}
+% \usepackage{enumerate}
+% \usepackage{algorithmic}
+% \usepackage{algorithm}
+
+% \usepackage{listings}
+% \usepackage{lstlinebgrd}
+
+\usetheme{Boadilla}
+\usefonttheme[onlymath]{serif}
+
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-editor]!#1!}
+\newcommand\blfootnote[1]{%
+\begingroup
+\renewcommand\thefootnote{}\footnote{#1}%
+\addtocounter{footnote}{-1}%
+\endgroup
+}
+
+\lstset
+{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = left,
+    frame = tb,
+}
+
+\lstdefinestyle{output}
+{
+    language = {},
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = none,
+    showtabs = false,
+   	showstringspaces = false,
+}
+
+% Sets the templates
+\definecolor{navyblue}{RGB}{0, 0, 128}
+\definecolor{crimson}{RGB}{128, 16, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamercolor{title}{fg=navyblue, bg=white}
+\setbeamercolor{frametitle}{fg=navyblue, bg=white}
+\setbeamercolor{structure}{fg=navyblue}
+\setbeamercolor{button}{fg=white,bg=navyblue}
+
+\setbeamercovered{transparent}
+
+\title{Comparando y asociando: relaciones y funciones}
+\subtitle{Modelación de la Ingeniería con Matemática Computacional \\ (TC1003B)}
+\author{
+    \texorpdfstring{
+        \begin{center}
+            M.C. Xavier Sánchez Díaz \\
+            \href{mailto:sax@tec.mx}{\texttt{sax@tec.mx}}
+        \end{center}
+    }
+    {M.C. Xavier Sánchez Díaz}
+}
+
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../../img/logo}}
+\date{}
+
+\begin{document}
+
+\setlength{\rightskip}{0pt}
+
+\begin{frame}[plain]
+    \titlepage        
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Relaciones}
+
+\begin{frame}{Tuplas}{Relaciones}
+    Una \alert{tupla} es una estructura matemática \textbf{de tamaño definido} y donde \textbf{el orden importa}. \pause
+
+    \bigskip
+
+    \begin{exampleblock}{Ejemplo de tupla}
+        $$(1, 2), (2, 3), (3, 5)$$
+    \end{exampleblock} \pause
+
+    \bigskip
+    
+    ¿Cuál es el conjunto de celdas de un tablero de \textit{Battleship} si las casillas van de la $A-J$ y del $1-10$?
+
+\end{frame}
+
+\begin{frame}{Producto Cartesiano}{Relaciones}
+    El \alert{producto Cartesiano} es el \textbf{conjunto} de todos los posibles valores que se pueden formar a partir de la combinación de dos conjuntos, de la siguiente manera: \pause
+
+    \bigskip
+
+    \begin{block}{Producto Cartesiano}
+        $$A \times B = \{(a, b) : a \in A, b \in B\}$$
+    \end{block} \pause
+
+    \bigskip
+    
+    El conjunto de las casillas de un tablero de \textit{Battleship} es claramente el producto Cartesiano del conjunto de sus renglones y sus columnas.
+\end{frame}
+
+\begin{frame}{Definición de Relación}{Relaciones}
+    Una \alert{relación} entre dos conjuntos $A$ y $B$ es cualquier conjunto $R$ de tal manera que $R \subseteq A \times B$. \pause
+
+    \bigskip
+
+    \begin{itemize}
+        \item Piensa en el conjunto de alumnos presentes en el salón como $A$ \pause
+        \item Piensa ahora en el conjunto de sillas disponibles en el salón como $B$ \pause
+        \item ¿Cuál es el producto Cartesiano $A \times B$? \pause
+        \item ¿Qué relación $R$ podemos formar sobre $A$ y $B$?
+    \end{itemize} \pause
+
+\end{frame}
+
+\begin{frame}{Relaciones inversas}{Relaciones}
+    La \alert{inversa} $R^-1$ de una relación $R$ es \dots $R$ al revés.
+
+    \bigskip
+    
+    \begin{block}{Relación inversa}
+        Una relación inversa es cualquier relación $R^{-1}$ tal que
+        $$R^{-1} = \{(b, a) : (a, b) \in R\}$$
+    \end{block} \pause
+
+    \bigskip
+
+    \begin{itemize}
+        \item Piensa en $A$ como el conjunto de \textit{Los Skywalker} \pause
+        \item ¿Puedes hacer una relación de parentezco $R$ sobre $A^2$? \pause
+        \item ¿Cuál sería la relación inversa?
+    \end{itemize}
+
+\end{frame}
+
+\subsection{Cuantificadores y operaciones}
+
+\begin{frame}{Cuantificadores}{Cuantificadores y operaciones}
+    Claramente, las relaciones aplican \textit{para algunos Skywalker} y no para todos. \pause
+    Sin embargo, también tenemos relaciones que podrían aplicar \textit{a todos}. \pause
+
+    \begin{block}{Cuantificadores}
+        \begin{itemize}
+            \item $\forall$ que significa \textit{para todos}
+            \item $\exists$ que significa \textit{existe}
+            \item $\exists!$ que significa \textit{existe un único}
+        \end{itemize}
+    \end{block} \pause
+
+    \bigskip
+
+    Puedes agregarle negación frente a cada uno para cambiar el significado a lo contrario.
+    ¿Qué significa la negación de cada uno de ellos?
+\end{frame}
+
+\begin{frame}{Imagen de una relación}{Operaciones}
+    La \alert{imagen} de una relación $R$ (usualmente denotada por $I$) es el conjunto de todos aquellos elementos $b$, es decir\dots \pause
+
+    \bigskip
+
+    \begin{block}{Imagen}
+        $$I(R) = \{b : (a, b) \in R\}$$
+    \end{block} \pause
+
+    \bigskip
+
+    ¿Cuál es la imagen en la relación $Padre$ en \textit{Los Skywalker}?
+\end{frame}
+
+\subsection{Propiedades de las relaciones}
+
+\begin{frame}{Reflexividad}{Propiedades de las relaciones}
+    
+    \begin{block}{Reflexividad}
+        $R$ es \alert{reflexiva} si y sólo si $\forall a \in A \left( \exists (a, a) \in R \right)$
+    \end{block} \pause
+
+    \bigskip
+
+    \begin{itemize}
+        \item Piensa en un ejemplo de una relación reflexiva \textit{(Hint: piensa en números)}
+        \item Lo opuesto a la reflexividad es la \textbf{irreflexividad}: si para todos NO se cumple la condición
+        \item Una relación puede no ser ni reflexiva ni irreflexiva
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Transitividad}{Propiedades de las relaciones}
+
+    \begin{block}{Transitividad}
+        $R$ es \alert{transitiva} si y sólo si
+        $$\forall(a,b) \in R\left((a,b) \in R \wedge (b,c) \in R \implies (a,c) \in R\right)$$
+    \end{block} \pause
+
+    \bigskip
+
+    \begin{itemize}
+        \item Piensa en un ejemplo de relación transitiva
+        \item Lo opuesto a la transitividad es la \textbf{intransitividad}: si para todos NO se cumple la condición
+        \item Una relación puede no ser ni transitiva ni intransitiva
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Simetría}{Propiedades de las relaciones}
+
+    \begin{block}{Simetría}
+        $R$ es \alert{simétrica} si y solo si
+        $$\forall(a,b) \in R\left( (a, b) \in R \implies (b, a) \in R \right)$$
+    \end{block} \pause
+    
+    \bigskip
+
+    \begin{itemize}
+        \item Piensa en un ejemplo de relación simétrica
+        \item Lo opuesto a la simetría es la \textbf{asimetría}: si para todos NO se cumple la condición
+        \item Una relación puede no ser ni simétrica ni asimétrica
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Relaciones de equivalencia}{Propiedades de las relaciones}
+
+    \begin{block}{Equivalencia}
+        Una relación $R$ es \alert{equivalente} si es \textbf{reflexiva}, \textbf{transitiva} y \textbf{simétrica}.
+    \end{block} \pause
+
+    \bigskip
+
+    ¿Habías pensado que el $=$ es un operador que relaciona dos números de manera \textit{equivalente}?
+
+\end{frame}
+
+\subsection{Partición, Órdenes y Cerraduras}
+
+\begin{frame}{Partición}{Partición, Órdenes y Cerraduras}
+    
+    Una \alert{partición} de $A$ es cualquier conjunto $B_{i \in I}$ de subconjuntos de $A$ que:
+
+    \begin{itemize}
+        \item No están vacíos
+        \item Son disjuntos entre sí
+        \item La unión generalizada de ellos cubre totalmente a $A$
+    \end{itemize} \pause
+
+    \bigskip
+
+    Una \textit{repartición} de dulces a un conjunto de bolsas es justamente una partición del conjunto de dulces.
+
+\end{frame}
+
+\begin{frame}{Antisimetría}{Partición, Órdenes y Cerraduras}
+
+    \begin{block}{Antisimetría}
+        Una relación es \alert{antisimétrica} si y solo si
+        $$\forall (a,b) \in R\left( (a, b) \in R \implies (b, a) \not \in R \right) \iff a \neq b$$
+    \end{block} \pause
+
+    \bigskip
+
+    A una relación que es \textbf{reflexiva}, \textbf{transitiva} y \textbf{antisimétrica} se le conoce como \alert{orden parcial}, o \textit{poset}.
+
+\end{frame}
+
+\begin{frame}{Orden total}{Partición, Órdenes y Cerraduras}
+
+    \begin{block}{Completez en una reflexión}
+        Una relación \textbf{reflexiva} es \alert{completa} si y solo si
+        $$\forall (a, b) \in A \left((a,b) \in R \vee (b, a) \in R \right)$$
+    \end{block} \pause
+
+    Cuando un \textit{poset} es completo (o lineal), se le conoce como \alert{orden total}. \pause
+
+    \bigskip
+
+    \begin{center}
+        \Huge $$\leq \text{ vs } < $$
+    \end{center}
+\end{frame}
+
+\begin{frame}{Cerraduras}{Partición, Órdenes y Cerraduras}
+    La \alert{cerradura} (\textit{closure} en inglés) de $A$ bajo la relación $R$ (denotada por $R[A]$) es un \textbf{conjunto} del tamaño mínimo necesario para cumplir con la aplicación de $R$ a cada elemento de $A$, y tal que $A \subseteq R[A]$ \dots
+
+    \pause
+
+    \bigskip
+
+    \begin{exampleblock}{Ejemplo de cerradura}
+        \begin{itemize}
+            \item \textbf{Q}: ¿Cuál es la \textbf{cerradura transitiva} de $A = \{(2, 3), (3, 4), (1, 2), (3, 1), (1,7),(7,8)\}$?
+            \item \textbf{A}: \begin{align*}
+                R[A] = \{& (2, 3), (3, 4), (1, 2), (3, 1), (1, 7), (7, 8), \\
+                         & (2, 4), (2, 1), (1, 3), (1, 4), (1, 1), (3, 7), \\
+                         & (3, 3), (1, 8), (2, 7), (2, 8), (3, 8), (3, 2), (2, 2) \}
+            \end{align*}
+        \end{itemize}        
+    \end{exampleblock}
+
+\end{frame}
+
+\begin{frame}{Unión e intersección generalizada}{Cerraduras}
+
+    ¿Cómo hacemos la cerradura transitiva de una relación $R$ si empezamos desde $A$? \pause
+
+    \begin{block}{Unión generalizada}
+        $$\bigcup_{i=1}^n A_i = A_0 \cup A_1 \cup \dots A_n$$
+    \end{block} \pause
+
+    \bigskip
+
+    \begin{block}{Intersección generalizada}
+        $$\bigcap_{i=1}^n A_i = A_0 \cap A_1 \cap \dots A_n$$
+    \end{block}
+
+    \bigskip
+
+    \begin{center}
+        \textit{Story time: intro a recursión}
+    \end{center}
+
+\end{frame}
+
+\section{Funciones}
+
+\begin{frame}{Definición de función}{Funciones}
+
+    \begin{block}{Función}
+        Una \alert{función} $f$  de $A$ a $B$ (la podemos denotar como $f : A \to B$ es una \textbf{relación} sobre $A \times B$ de tal manera que
+        $$\forall a \in A(\exists! b \in B)$$    
+    \end{block} \pause
+    
+    \bigskip
+
+    Llamamos \alert{dominio} al conjunto $A$ de donde salen los \textit{inputs}, y \alert{rango} al conjunto $B$ de donde salen los \textit{outputs}.
+
+\end{frame}
+
+\begin{frame}{Definición de función}{Funciones}
+    Las funciones también suelen ser conocidas como \textit{mapeos}, y la idea es \textit{asociar} una cosa con la otra. \pause
+
+    \bigskip
+    \begin{itemize}
+        \item ¿Qué ejemplos de funciones se te ocurren? \pause
+        \item Piensa en $A$ como \textit{Los Skywalker} y $B$ como los \textit{lightsabers} de cada uno. \pause
+        \item ¿Puedes hacer una asociación entre ellos? \pause
+        \item ¿Es esto una función?
+    \end{itemize} \pause
+
+    \bigskip
+
+    Cuando una función utiliza \textbf{todos} los elementos de su dominio, entonces se dice que es una \alert{función completa}. Si no lo hace, entonces es una \alert{función parcial}.
+
+\end{frame}
+
+\subsection{Propiedades de las funciones}
+
+\begin{frame}{Composición}{Operaciones}
+
+    \begin{block}{Composición}
+        Sean $f$ y $g$ dos funciones sobre $X$, donde $x \in X$. La \alert{composición} de funciones se denota
+        $$f \circ g$$
+        que significa que $f$ \textit{compone a} $g$, y es un sinónimo de
+        $$f(g(x))$$
+    \end{block}
+
+    \bigskip
+
+    \begin{center}
+        \textit{Story time: S-expressions}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}{Funciones Inyectivas}{Propiedades de las funciones}
+    
+    \begin{block}{Función inyectiva}
+        Se dice que una función $f: A \to B$ es \alert{inyectiva} (o bien, \textit{uno a uno}) si cumple con lo siguiente
+        $$\forall a, a' \in A \left(a \neq a' \iff f(a) \neq f(a') \right)$$
+    \end{block} \pause
+
+    \bigskip
+
+    Es decir, que para cada \textit{argumento} distinto, le toca un \textit{valor} distinto. \pause
+
+    \bigskip
+
+    \begin{exampleblock}{Ejemplo}
+        \begin{itemize}
+            \item La función $sucesor$ es una función inyectiva sobre $\mathbb{N}$. \pause
+            \item La función $f(x) = x^2$ es inyectiva sobre $\mathbb{N}$. ¿Y sobre $\mathbb{Z}$?
+        \end{itemize}
+    \end{exampleblock}
+
+\end{frame}
+
+\begin{frame}{Funciones Suprayectivas}{Propiedades de las funciones}    
+
+    \begin{block}{Función suprayectiva}
+        Una función $f : A \to B$ es suprayectiva (o \textit{sobre}) si se cumple lo siguiente:
+        $$\forall b \in B \left(\exists a \in A | f(a) = b \right)$$ 
+    \end{block} \pause
+
+    \bigskip
+
+    En otras palabras, si el rango de $f$ \textit{agota} $B$ (o sea, usa todos sus elementos). \pause
+
+    \bigskip
+
+    \begin{exampleblock}{Ejemplo}
+        \begin{itemize}
+            \item La función $sucesor$ es una función suprayectiva \textit{bajo} $\mathbb{N}$. \pause
+            \item ¿Es suprayectiva la función $f(x) = x^2$ bajo $\mathbb{N}$? ¿Y bajo $\mathbb{Z}$?
+        \end{itemize}
+    \end{exampleblock}
+
+\end{frame}
+
+\begin{frame}{Funciones Biyectivas}{Propiedades de las funciones}
+
+    \begin{block}{Biyección}
+        Una función es \alert{biyectiva} (o una biyección) si es \textbf{inyectiva} y \textbf{suprayectiva}.
+    \end{block} \pause
+
+    \bigskip
+
+    Es decir que para que sea biyectiva, debe cumplirse que:
+
+    \begin{itemize}
+        \item Para cada input le corresponde un output distinto. \pause
+        \item Utilizo todos los outputs del \textit{codominio}.
+    \end{itemize}
+    
+
+\end{frame}
+
+\subsection{Equipotencia y el Principio del Palomar}
+
+\begin{frame}{Equipotencia}{Funciones}
+    El concepto de \alert{equipotencia} (también llamado \textit{equinumerosidad}) surge al mostrar que dos \textbf{conjuntos} son \textit{del mismo tamaño}. \pause
+
+    \bigskip
+
+    Esto se puede \textit{probar} si logramos encontrar una \textbf{biyección} entre ambos conjuntos. \pause
+
+    \bigskip
+
+    \begin{center}
+        \textit{Story time: $\mathbb{N}$ vs $\mathbb{Z}$ vs $\mathbb{Q}$}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}{El principio del palomar}{Funciones}
+    El hecho de que dos conjuntos sean \textbf{equipotentes} da pie a encontrar propiedades interesantes.
+    \pause
+
+    \bigskip
+
+    Por ejemplo, que si tienes más palomas que palomares; significa que tendrás que poner al menos dos palomas en el mismo palomar. \pause
+
+    \bigskip
+
+    \begin{exampleblock}{Ejercicio}
+        Si un pueblo tiene 400 habitantes, demuestra que al menos 2 personas cumplen años el mismo día y que al menos 34 cumplen años el mismo mes.
+    \end{exampleblock}
+
+\end{frame}
+
+% What is a function
+% Partial vs Full functions
+% Domain
+% Range
+% Composition
+% Injection
+% Surjection
+% Bijection
+% Equinumerosity
+% Pigeonhole Principle
+
+
+
+% \section*{Referencias}
+
+% \begin{frame}[t]{Referencias}
+    % \nocite{bibID01}
+    % \nocite{bibID02}
+
+    % \bibliographystyle{IEEE}
+    % \bibliography{biblio}
+% \end{frame}
+
+\end{document}
