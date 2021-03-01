@@ -1,0 +1,345 @@
+\documentclass[spanish, c]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, mexico]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{ragged2e}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{venndiagram}
+
+\renewcommand{\indent}{\hspace*{2em}}
+
+% \usetikzlibrary{fit, shapes, arrows}
+
+% \usepackage{courier}
+% \usepackage{subfigure}
+% \usepackage{enumerate}
+% \usepackage{algorithmic}
+% \usepackage{algorithm}
+
+% \usepackage{listings}
+% \usepackage{lstlinebgrd}
+
+\usetheme{Boadilla}
+\usefonttheme[onlymath]{serif}
+
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-editor]!#1!}
+\newcommand\blfootnote[1]{%
+\begingroup
+\renewcommand\thefootnote{}\footnote{#1}%
+\addtocounter{footnote}{-1}%
+\endgroup
+}
+
+\lstset
+{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = left,
+    frame = tb,
+}
+
+\lstdefinestyle{output}
+{
+    language = {},
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = none,
+    showtabs = false,
+   	showstringspaces = false,
+}
+
+% Sets the templates
+\definecolor{navyblue}{RGB}{0, 0, 128}
+\definecolor{crimson}{RGB}{128, 16, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamercolor{title}{fg=navyblue, bg=white}
+\setbeamercolor{frametitle}{fg=navyblue, bg=white}
+\setbeamercolor{structure}{fg=navyblue}
+\setbeamercolor{button}{fg=white,bg=navyblue}
+
+\setbeamercovered{transparent}
+
+\title{Expansiones a la lógica: Lógica de Primer Orden e Inferencia}
+\subtitle{Modelación de la Ingeniería con Matemática Computacional \\ (TC1003B)}
+\author{
+    \texorpdfstring{
+        \begin{center}
+            M.C. Xavier Sánchez Díaz \\
+            \href{mailto:sax@tec.mx}{\texttt{sax@tec.mx}}
+        \end{center}
+    }
+    {M.C. Xavier Sánchez Díaz}
+}
+
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../../img/logo}}
+\date{}
+
+\begin{document}
+
+\setlength{\rightskip}{0pt}
+
+\begin{frame}[plain]
+    \titlepage        
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Recap de Lógica}
+
+\begin{frame}{Lógica proposicional}{Recap de Lógica}
+    Previamente, analizamos un poco \textit{la verdad} en algunas oraciones.
+
+    \begin{itemize}[<+->]
+        \item Aprendimos la diferencia entre un \textbf{estatuto} y una oración.
+        \item También aprendimos a identificar cuando un estatuto era \textbf{atómico}.
+        \item Revisamos la diferencia entre los operadores \textbf{binarios} y un operador \textbf{unitario}
+        \item Aprendimos también la simbología necesaria:
+        \bigskip
+        \begin{itemize}[<+->]
+            \item \textbf{Conjunción}: $\wedge$
+            \item \textbf{Disyunción}: $\vee$
+            \item \textbf{Negación}: $\neg$
+            \item \textbf{Implicación}: $\implies$
+            \item \textbf{Doble implicación}: $\iff$
+            \item \textbf{Disyunción exclusiva}: $\oplus$
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\section{Lógica de Primer Orden}
+
+\begin{frame}{Expresividad}{Lógica de Primer Orden}
+    \begin{itemize}
+        \item El sol sale por el este
+        \item Cinco ballenas mueren al día
+        \item Si hay de sirloin, me traes cinco.
+    \end{itemize} \pause
+
+    \begin{center}
+        ¿Qué tienen en común estas proposiciones?
+    \end{center} \pause
+
+    \begin{itemize}
+        \item Todas son proposiciones que hablan de \textbf{un solo valor de verdad}.
+        \item La veracidad en ellas es \textit{absoluta} y se presenta de manera \textit{aislada}.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Expresividad}{Lógica de Primer Orden}
+
+    Pensemos en el siguiente ejemplo: \textit{de noche, todos los gatos son pardos}.
+    
+    ¿Cómo la reescribimos? en una forma más fácilmente 'expresable' con lo que hemos visto? \pause
+
+    \bigskip
+
+    \textit{Si es de noche, entonces todos los gatos son pardos}, para que quede en la forma $ P \implies Q$
+    donde $P =$ \textit{es de noche} y $Q = $ \textit{todos los gatos son pardos}. \pause
+
+    \bigskip
+
+    Tendríamos que pensar en \textit{todos los gatos} como \textbf{un solo objeto} para que esto funcione con la lógica que conocemos. \pause
+
+    \bigskip
+
+    Pongámosle números, en donde nuestro universo contempla los 3 gatos que---esperamos aún---viven en el Campus.
+    ¿Cómo hacemos para describir que al menos dos son pardos durante la noche?
+
+\end{frame}
+
+\begin{frame}{Expresividad}{Lógica de Primer Orden}
+    \textit{Si es de noche, entonces al menos dos de los tres gatos que viven en el Campus son pardos.} \pause
+    $$P \implies Q$$
+    donde $P$ es lo mismo: \textit{es de noche}, y $Q$ cambió: \textit{al menos dos de los tres gatos que viven en el Campus son pardos}. \pause
+    
+    \bigskip
+
+    Claramente, si queremos expresar algo con cantidades o condiciones adicionales, alguna de las fórmulas atómicas debe \textit{absorber} esta información. Significa que van a haber cosas que \textbf{no podremos expresar} de esta manera general. \pause
+
+    A esta capacidad (o incapacidad) de expresar se le conoce como \textbf{poder expresivo} o \alert{expresividad}. La lógica proposicional es de expresividad limitada.
+    
+    Sin embargo, podemos \textit{expandirla} para poder expresar otro tipo de cosas.
+\end{frame}
+
+\begin{frame}{Cuantificadores}{Lógica de Primer Orden}
+
+    Recordemos ahora los cuantificadores que vimos al hablar del tema de relaciones y funciones: \pause
+
+    \begin{itemize}[<+->]
+        \item Cuantificador universal: $\forall$ que significa \textit{para todos}
+        \item Cuantificador existencial: $\exists$ que significa \textit{existe} (o sea, para al menos uno)
+        \item Cuantificador de unicidad: $\exists!$ que significa \textit{existe únicamente uno} (o sea, para solamente uno) y es un caso especial del cuantificador existencial
+    \end{itemize}
+
+    \pause
+
+    Con esto podemos acercarnos un poco más al ejemplo de los gatos que necesitamos: \pause
+
+    \textit{Para todo $x$, si $x$ es un gato, y es de noche, entonces $x$ es pardo}.
+    $$\forall x(Gx \implies Px) \quad \text{ o bien } \forall x(G(x) \implies P(x))$$ \pause
+    
+    ¿Qué son $G$ y $P$?
+\end{frame}
+
+\begin{frame}{Relaciones, Funciones y Predicados}{Lógica de Primer Orden}
+
+    La \alert{lógica de primer orden} (LPO o FOL por sus siglas en inglés) trabaja con \textbf{cuantificadores} y \textbf{relaciones y funciones} para tener un mayor poder expresivo. \pause
+
+    \bigskip
+
+    Podemos pensar en el predicado $G(x)$ o $Gx$ como una función unitaria de la forma $G \colon \mathscr{V} \to \mathscr{T}$ donde $\mathscr{V}$ es el conjunto de posibles \textit{variables} en nuestra fórmula, y $\mathscr{T}$ son los posibles valores de verdad de cada una de ellas---cierto, o falso.
+    Bajo ese concepto, entonces $G(x)$ puede pensarse como la función \textit{$x$ es un gato} que puede ser verdadero o falso. \pause
+
+    $Px$ significa entonces que $x$ es pardo.
+\end{frame}
+
+\begin{frame}{Implicaciones para prácticamente todo}{Lógica de Primer Orden}
+    
+    Pensemos en otro ejemplo felino: \textit{los $L$eones y los $T$igres son $P$eligrosos}. ¿Cómo expresamos esto en lógica de primer orden?
+    \pause
+    
+    $\forall x((Lx \vee Tx) \implies Px)$ o bien $\forall x(Lx \implies Px) \wedge \forall x(Tx \implies Px)$ que podemos leer literalmente como
+
+    \begin{itemize}
+        \item Para todo $x$, si $x$ es un león o un tigre, entonces $x$ es peligroso
+        \item Para todo $x$, si $x$ es un león entonces es peligroso. Y además, para todo $x$, si $x$ es un tigre entonces es peligroso.
+    \end{itemize} \pause
+
+    No podríamos agrupar $\forall x (Lx \wedge Tx)$ porque esto significaría que $x$ es un tigre y también un león, y lo que estaríamos diciendo tendría que ser verdad para todos aquellos $x$ que son tigres-leones.
+\end{frame}
+
+\begin{frame}{Más ejemplos}{Lógica de Primer Orden}
+    \begin{itemize}[<+->]
+        \item \textit{Algunos compositores son poetas} $\Rightarrow \exists x (Cx \wedge Px)$
+        \item \textit{Todos aman a alguien} $\Rightarrow \forall x \exists y (Lxy)$
+        \item \textit{Existe un número primo menor a 7} $\Rightarrow \exists x(Px \wedge (x < 7))$
+    \end{itemize} \pause
+
+    \bigskip
+
+    ¿Cómo expresaríamos lo siguiente? \pause
+
+    \bigskip
+    
+    \begin{itemize}
+        \item \textit{Todos los hombres hablan más que Charles Chaplin} \pause
+        \item \textit{Si un triángulo tiene un ángulo recto, entonces no es equilátero}
+    \end{itemize}    
+\end{frame}
+
+\section{Formalización de la lógica}
+
+\begin{frame}{Dualidad de los cuantificadores}{Formalización de la lógica}
+
+    Como el Ying Yang, existe cierta \alert{dualidad} de los \textbf{cuantificadores} \pause
+    \bigskip
+    \begin{itemize}[<+->]
+        \item $\neg \forall x(\alpha) \equiv \exists x(\neg \alpha)$
+        \item $\neg \exists x(\alpha) \equiv \forall x(\neg \alpha)$
+        \item $\forall x(\alpha) \equiv \neg \exists x(\neg \alpha)$
+        \item $\exists x(\alpha) \equiv \neg \forall x(\neg \alpha)$
+    \end{itemize} \pause
+
+    El caso especial $\exists! x(\alpha)$ hace referencia a $\exists x[\alpha \wedge \forall y(\alpha \implies x=y)]$ \pause
+
+    si no existe algo que cumpla, significa que para todos no se cumple algo \dots
+    $$\forall x\neg[\alpha \wedge \forall y(\alpha \implies x=y)]$$ \pause
+    \dots lo que implica que usando DeMorgan y las reglas de arriba, logramos
+    $$\forall x [\neg \alpha \vee \exists y(\neg \alpha)]$$
+
+\end{frame}
+
+\begin{frame}{Interpretación}{Formalización de la lógica}
+    En lógica de primer orden hablamos de fórmulas. Una fórmula $A$ tiene distintos predicados (como $Gx$) y distintas constantes (como Charles Chaplin). \pause
+
+    Una \alert{interpretación} $\mathscr{I}_A$ de $A$ es una tripleta $(D, \{R_1, \dots, R_m\}, \{d_1, \dots, d_k\})$ donde
+
+    \begin{itemize}
+        \item $D$ es un dominio \textit{no-vacío}
+        \item $R_i$ es una relación $n_i$-aria sobre $D$ que se asigna al $n_i$-ario predicado de la fórmula $A$
+        \item $d_i \in D$ es asignado a la constante $a_i$.
+    \end{itemize} \pause
+
+    Por ejemplo, para la fórmula $A = \forall x p(a,x)$, tres de sus posibles interpretaciones pueden ser
+        $$\mathscr{I}_1 = (\mathbb{N}, \{\leq\}, \{0\}) \quad \,
+        \mathscr{I}_2 = (\mathbb{N}, \{\geq\}, \{5\}) \quad \,
+        \mathscr{I}_3 = (\mathbb{Z}, \{\leq\}, \{0\})$$
+    \end{frame}
+
+\begin{frame}{Asignaciones y valores de verdad}{Formalización de la lógica}
+
+    Teniendo una interpretación $\mathscr{I}_A$, podemos tener una \alert{asignación} $\sigma_{\mathscr{I}_a} \colon \mathscr{V} \to D$ que mapea toda variable libre $v \in \mathscr{V}$ a un elemento $d \in D$. \pause
+
+    Esta asignación tiene distintos valores de verdad, dependiendo de qué variables se utilicen. Este valor de verdad se denota como
+    $$v_{\sigma_{\mathscr{I}_A}}(A)$$ \pause
+    y se lee como \textit{el valor de verdad de la fórmula $A$ bajo la interpretación $\mathscr{I}_A$ y la asignación $\sigma_{\mathscr{I}_A}$}. \pause
+
+    ¿Cuántos posibles valores tiene $v_{\sigma_{\mathscr{I}_A}}(A)$?
+\end{frame}
+
+
+\begin{frame}{Validez y Factibilidad}{Formalización de la lógica}
+    Toda esta información nos da las herramientas necesarias para poder entender la \textit{validez} de una fórmula $A$ de lógica de primer orden:
+
+    \bigskip
+
+    \begin{itemize}
+        \item $A$ es \alert{verdad} en $\mathscr{I}$ (o $\mathscr{I}$ es un \alert{modelo} para $A$) si y solo si $v_{\mathscr{I}}(A) = T$. La notación que usaremos es $\mathscr{I} \models A$
+        \item $A$ es \alert{válida} is \textbf{para toda} interpretación $\mathscr{I}$, $\mathscr{I} \models A$. La notación que usaremos es $\models A$.
+        \item $A$ es \alert{factible} (\textit{satisfiable}) si para alguna interpretación $\mathscr{I}$, $\mathscr{I} \models A$.
+        \item $A$ es \alert{no factible} (\textit{unsatisfiable}) si no es factible (duh) .
+        \item $A$ es \alert{falsificable} (\textit{falsifiable}) si no es válida.
+    \end{itemize}
+\end{frame}
+
+% How to do that
+
+% What is a function
+% Partial vs Full functions
+% Domain
+% Range
+% Composition
+% Injection
+% Surjection
+% Bijection
+% Equinumerosity
+% Pigeonhole Principle
+
+
+
+% \section*{Referencias}
+
+% \begin{frame}[t]{Referencias}
+    % \nocite{bibID01}
+    % \nocite{bibID02}
+
+    % \bibliographystyle{IEEE}
+    % \bibliography{biblio}
+% \end{frame}
+
+\end{document}
