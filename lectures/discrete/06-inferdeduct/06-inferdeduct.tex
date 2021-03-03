@@ -1,0 +1,297 @@
+\documentclass[spanish, c]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, mexico]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{ragged2e}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{venndiagram}
+\usepackage{semantic}
+
+\renewcommand{\indent}{\hspace*{2em}}
+
+% \usetikzlibrary{fit, shapes, arrows}
+
+% \usepackage{courier}
+% \usepackage{subfigure}
+% \usepackage{enumerate}
+% \usepackage{algorithmic}
+% \usepackage{algorithm}
+
+% \usepackage{listings}
+% \usepackage{lstlinebgrd}
+
+\usetheme{Boadilla}
+\usefonttheme[onlymath]{serif}
+
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-editor]!#1!}
+\newcommand\blfootnote[1]{%
+\begingroup
+\renewcommand\thefootnote{}\footnote{#1}%
+\addtocounter{footnote}{-1}%
+\endgroup
+}
+
+\lstset
+{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = left,
+    frame = tb,
+}
+
+\lstdefinestyle{output}
+{
+    language = {},
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = none,
+    showtabs = false,
+   	showstringspaces = false,
+}
+
+% Sets the templates
+\definecolor{navyblue}{RGB}{0, 0, 128}
+\definecolor{crimson}{RGB}{128, 16, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamercolor{title}{fg=navyblue, bg=white}
+\setbeamercolor{frametitle}{fg=navyblue, bg=white}
+\setbeamercolor{structure}{fg=navyblue}
+\setbeamercolor{button}{fg=white,bg=navyblue}
+
+\setbeamercovered{transparent}
+
+\title{Deducción e Inferencia}
+\subtitle{Modelación de la Ingeniería con Matemática Computacional \\ (TC1003B)}
+\author{
+    \texorpdfstring{
+        \begin{center}
+            M.C. Xavier Sánchez Díaz \\
+            \href{mailto:sax@tec.mx}{\texttt{sax@tec.mx}}
+        \end{center}
+    }
+    {M.C. Xavier Sánchez Díaz}
+}
+
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../../img/logo}}
+\date{}
+
+\begin{document}
+
+\setlength{\rightskip}{0pt}
+
+\begin{frame}[plain]
+    \titlepage        
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{El proceso de inferencia}
+
+\begin{frame}{Constructos}{Inferencia}
+    Ya sabemos \textit{construir} oraciones lógicas.
+    El siguiente paso ahora es \alert{operar} con estas oraciones usando un vocabulario propio de la inferencia:
+
+    \begin{itemize}[<+->]
+        \item Premisa
+        \item Conclusión
+        \item Teorema
+        \item Prueba
+        \item Axioma
+        \item Sistema de deducción
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Sistema de deducción}{Inferencia}
+    
+    \begin{block}{Definición}
+        Un \alert{sistema deductivo} es un conjunto de fórmulas llamados \textbf{axiomas} y una serie de \textbf{reglas de inferencia}.
+    \end{block} \pause
+
+    \bigskip
+
+    \begin{itemize}
+        \item \alert{Axiomas}: fórmulas que se asume que son ciertas desde el principio---hechos. Son la base de todas las demás reglas. \pause
+        \item \alert{Reglas de inferencia}: fórmulas que ayudan a generar nuevas reglas a partir de los axiomas.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Prueba}{Inferencia}
+
+    \begin{block}{Definición}
+    Una \alert{prueba} en un \textbf{sistema deductivo} es una secuencia de fórmulas $S = \langle A_1, \dots , A_n \rangle$ de tal modo que cada fórmula $A_i$ es o un \textbf{axioma} o puede ser inferida usando fórmulas previas $A_{j_1} \dots , A_{j_k}$ donde $j_1 < \dots < j_k < i$, usando una \textbf{regla de inferencia}.
+    \end{block} \pause
+    
+    \begin{itemize}[<+->]
+        \item Para $A_n$, la última de las fórmulas en la sequencia $S$, decimos que $A_n$ es un \alert{teorema}.
+        \item La secuencia $S$ es una \textbf{prueba} de $A_n$.
+        \item $A_n$ es \textit{demostrable}, denotado como $\vdash A_n$
+        \item Si $\vdash A$, entonces $A$ puede usarse como \textbf{axioma} en una prueba subsecuente.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{El proceso de inferencia}{Inferencia}
+
+    Usando ciertas \textbf{fórmulas} de nuestro sistema de deducción, podemos llegar a alguna \textbf{conclusión}. \pause
+
+    \bigskip
+    
+    Estas fórmulas que usamos para llegar a la conclusión son conocidas como \alert{premisas}, y a la \textit{verdad} a la que llegamos se le llama conclusión.
+
+    \bigskip
+
+    \begin{center}
+        \footnotesize Podemos decir prácticamente que lo que concluimos es la conclusión, pero suena un poco redundante\dots    
+    \end{center}
+\end{frame}
+
+\section{Reglas de Inferencia}
+
+\begin{frame}{Modus Ponens}{Reglas de Inferencia}
+    \begin{exampleblock}{Ejemplo}
+        Díjole Esther a Edith: Si comes tus verduras, entonces puedes comerte una galleta de postre.
+        Acto seguido, Edith se comió sus verduras sin pensarlo dos veces.
+
+        \begin{itemize}
+            \item Sabemos que \textbf{Si} Edith se come sus verduras, \textbf{entonces} puede comer una galleta de postre
+            \item Sabemos que Edith se comió sus verduras.
+        \end{itemize}
+
+        Podemos entonces \textbf{deducir} que Edith puede comerse una galleta de postre.
+    \end{exampleblock}
+
+    \begin{block}{Definición de Modus Ponens}
+            $$\inference[MP:]{P \implies Q \\ P}{Q}$$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Modus Tollens}{Reglas de Inferencia}
+
+    \begin{exampleblock}{Mismo ejemplo}
+        \begin{itemize}
+            \item Sabemos que \textbf{Si} Edith se come sus verduras, \textbf{entonces} puede comer una galleta de postre
+            \item Sabemos que Edith NO tuvo autorización de comerse una galleta de postre
+        \end{itemize}
+
+        Podemos entonces deducir que Edith no se comió sus verduras.
+    \end{exampleblock}
+
+    \begin{block}{Definición de Modus Tollens}
+        $$\inference{P \implies Q \\ \neg Q}{\neg P}$$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Resolución}{Reglas de inferencia}
+
+    \begin{exampleblock}{Ejemplo}
+        \footnotesize
+        Sospecho que Pedro o Gabriel se comieron el Gansito que dejé en el refri.
+        Sin embargo, Pedro estaba en CDMX cuando el Gansito desapareció.
+        Alfredo abrió el refri un par de veces el día que desapareció el Gansito.
+
+        \begin{itemize}
+            \item Sabemos que Pedro o Gabriel pudieron haberse comido el Gansito.
+            \item Pedro no fue.
+            \item Alfredo pudo haber sido.
+            \item Pedro no fue o bien fue Alfredo.
+        \end{itemize}
+
+        Puedo deducir entonces que Gabriel o Alfredo pudieron haberse comido el Gansito.
+    \end{exampleblock}
+
+    \begin{block}{Definición de Resolución}
+        $$\inference[Re:]{P \vee  Q \\  \neg P \vee R}{Q \vee R}$$
+    \end{block}
+\end{frame}
+
+\section{Haciendo nuevas reglas}
+
+\begin{frame}{Recogiendo Fresas}{Haciendo nuevas Reglas}
+
+    Lo que sabemos:
+
+    \begin{center}
+        \textit{
+        Si está soleado y cálido, entonces disfruto.
+        Si está cálido y agradable, entonces recojo fresas.
+        Si está lloviendo, no recojo fresas.
+        Si está lloviendo, entonces me mojo.
+        Está cálido.
+        Está lloviendo.
+        Está soleado.}
+    \end{center} \pause
+    \bigskip
+    Lo que queremos probar:
+    \begin{itemize}
+        \item \textit{No voy a recoger fresas}
+        \item \textit{Voy a disfrutar}
+        \item \textit{Me voy a mojar}
+    \end{itemize}
+     \pause
+    \bigskip
+
+    ¿Qué proceso debemos seguir?
+\end{frame}
+
+\begin{frame}{Recogiendo Fresas II}{Haciendo nuevas reglas}
+
+    \begin{enumerate}
+        \item Establecer vocabulario
+        \item Convertir todo a \texttt{OR}s y \texttt{AND}s (\alert{Forma Normal Conjuntiva})
+        \item Negar la conclusión e incluirla en la base de conocimiento
+        \item Usando resolución, intentar llegar a una fórmula vacía.
+    \end{enumerate}
+    
+\end{frame}
+
+\section{Introducción a la Prueba Matemática}
+
+\begin{frame}{Algunos métodos de prueba}{Introducción a la prueba matemática}
+
+    \begin{itemize}
+        \itemsep2.5ex
+        \item Contradicción: lo contrario a lo que quiero probar me lleva a una fórmula no factible.
+        \item Tablas de verdad: si dos columnas son iguales, son equivalentes.
+        \item Inferencia/Deducción: si llego al final usando reglas de inferencia válidas.
+        \item Sustitución: si llego de una fórmula a otra equivalente usando equivalencias.
+    \end{itemize}
+
+\end{frame}
+
+
+% \section*{Referencias}
+
+% \begin{frame}[t]{Referencias}
+    % \nocite{bibID01}
+    % \nocite{bibID02}
+
+    % \bibliographystyle{IEEE}
+    % \bibliography{biblio}
+% \end{frame}
+
+\end{document}
