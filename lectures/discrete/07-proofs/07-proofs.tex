@@ -1,0 +1,327 @@
+\documentclass[spanish, c]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, mexico]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{ragged2e}
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{venndiagram}
+\usepackage{semantic}
+
+\renewcommand{\indent}{\hspace*{2em}}
+
+% \usetikzlibrary{fit, shapes, arrows}
+
+% \usepackage{courier}
+% \usepackage{subfigure}
+% \usepackage{enumerate}
+% \usepackage{algorithmic}
+% \usepackage{algorithm}
+
+% \usepackage{listings}
+% \usepackage{lstlinebgrd}
+
+\usetheme{Boadilla}
+\usefonttheme[onlymath]{serif}
+
+\newcommand{\matlab}[1]{\lstinline[style=Matlab-editor]!#1!}
+\newcommand\blfootnote[1]{%
+\begingroup
+\renewcommand\thefootnote{}\footnote{#1}%
+\addtocounter{footnote}{-1}%
+\endgroup
+}
+
+\lstset
+{
+    language = Matlab,
+    style = Matlab-editor,
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = left,
+    frame = tb,
+}
+
+\lstdefinestyle{output}
+{
+    language = {},
+    basicstyle = \mlttfamily\scriptsize,
+    escapechar = `,
+    numbers = none,
+    showtabs = false,
+   	showstringspaces = false,
+}
+
+% Sets the templates
+\definecolor{navyblue}{RGB}{0, 0, 128}
+\definecolor{crimson}{RGB}{128, 16, 0}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamercolor{title}{fg=navyblue, bg=white}
+\setbeamercolor{frametitle}{fg=navyblue, bg=white}
+\setbeamercolor{structure}{fg=navyblue}
+\setbeamercolor{button}{fg=white,bg=navyblue}
+
+\setbeamercovered{transparent}
+
+\title{La prueba matemática}
+\subtitle{Modelación de la Ingeniería con Matemática Computacional \\ (TC1003B)}
+\author{
+    \texorpdfstring{
+        \begin{center}
+            M.C. Xavier Sánchez Díaz \\
+            \href{mailto:sax@tec.mx}{\texttt{sax@tec.mx}}
+        \end{center}
+    }
+    {M.C. Xavier Sánchez Díaz}
+}
+
+\institute[Tecnológico de Monterrey]{\includegraphics[scale=0.5]{../../img/logo}}
+\date{}
+
+\begin{document}
+
+\setlength{\rightskip}{0pt}
+
+\begin{frame}[plain]
+    \titlepage        
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Introducción y vocabulario}
+
+\begin{frame}{La prueba matemática}{Introducción y Vocabulario}
+
+    En matemáticas, un \alert{teorema} es una oración que es \textbf{verdadera}. \pause
+
+    \bigskip
+
+    Una \alert{prueba matemática} (\textbf{prueba}, de ahora en adelante bajo este contexto) es una \textbf{secuencia} de oraciones que forman un argumento para \textbf{demostrar} que un \textbf{teorema} es cierto. \pause
+
+    \bigskip
+
+    Las oraciones en una prueba incluyen \textbf{axiomas}, \textbf{hipótesis} del teorema que queremos demostrar, y teoremas previamente probados.
+\end{frame}
+
+\begin{frame}{Probamos a partir de la verdad}{Introducción y Vocabulario}
+
+    Para poder \textbf{decidir} si una oración es \textbf{verdadera} necesitamos un marco de referencia sobre lo que está permitido hacer, y sobre lo que \textbf{ya sabemos que es verdad}, como los axiomas. \pause
+
+    \bigskip
+    
+    Para eso existen los \alert{sistemas de prueba o deducción}. Por ejemplo, el sistema de pruebas Hilbert $\mathrm{H}$, utiliza \textit{Modus Ponens} como regla de inferencia, y sus axiomas son específicamente:
+
+    \begin{itemize}
+        \item $\vdash (A \implies (B \implies A))$
+        \item $\vdash (A \implies (B \implies C)) \implies ((A \implies B) \implies (A \implies C))$
+        \item $\vdash (\neg B \implies \neg A) \implies (A \implies B)$
+    \end{itemize} \pause
+
+    \alert{Todas} aquellas fórmulas válidas son resultado de una deducción formal usando estas reglas, y por eso se dice que es un sistema de deducción \alert{completo}. \pause
+
+    \bigskip
+
+    De manera contraria se tiene que \alert{solamente} aquellas fórmulas válidas son deducibles usando estas reglas, y por eso se dice que es un sistema de deducción \alert{sólido}.
+\end{frame}
+
+\section{Técnicas y Recomendaciones Generales}
+
+\begin{frame}{Para demostrar\dots}{Recomendaciones generales}
+
+    \begin{itemize}[<+->]
+        \item Es importante leer y entender completamente la oración que queremos probar (quizá sea lo más difícil en algunas ocasiones)
+        \item Puede haber teoremas compuestos que podemos partir en teoremás más pequeños
+        \item Intenta revisar rápidamente algunos casos simples del teorema para comprobar si es cierto o no
+        \item \textbf{Escribe} la prueba---sólo si la hacemos por escrito podemos demostrar su \textbf{solidez}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Prueba directa}{Técnicas de prueba}
+
+    Son aquellas pruebas donde la aplicación del teorema tal cual nos da el \textit{camino} que buscamos. \pause
+
+    \begin{theorem}
+        0 es un número par.
+    \end{theorem}
+
+    \begin{proof}
+        La definición de un número par es aquél que puede ser dividido entre 2, obteniendo un resultado entero y un residuo de 0.
+
+        Al dividir $\dfrac{0}{2} = 0$, tenemos un resultado entero (0) y un residuo de 0, y por tanto es un número par.
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}{Prueba directa}{Técnicas de Prueba}
+    
+    \begin{theorem}
+        \label{th:02}
+        Si $n$ es un entero positivo impar, entonces $n^2$ es también impar.
+    \end{theorem}
+
+    \begin{proof}
+        Podemos describir cualquier entero positivo impar como $n = 2k + 1$ para cualquier número entero $k \geq 0$. Entonces,
+
+        $$n^2 = (2k +1)^2 = 4k^2 +4k + 1 = 2(2k^2 + 2k) + 1$$
+
+        Como $2(2k^2 + 2k)$ es par, y cualquier número par más uno nos da un número impar, entonces $n^2$ es impar.
+    \end{proof}
+
+\end{frame}
+
+
+\begin{frame}{Prueba constructiva}{Técnicas de Prueba}
+
+    Son pruebas donde hay que \textbf{construir} o \textbf{generar} un objeto con \textit{cierta propiedad} para revisar la existencia del mismo.
+    
+    \begin{theorem}
+        Si $X \subseteq A \cap B$, entonces $X \subseteq A$ y $X \subseteq B$.
+    \end{theorem}
+
+    \begin{proof}
+        Sea $x$ un elemento del conjunto $X$, de tal modo que $x \in X$.
+        Como sabemos que $x \in X$, y que $X \subseteq A \cap B$, entonces significa que $x \in A \cap B$.
+
+        Y dado a que $x \in A \cap B$, significa que $x \in A$ y $x \in B$.
+        Y como $x \in X$, entonces $X \subseteq A$, y de igual manera $X \subseteq B$.
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}{Prueba por contradicción}{Técnicas de Prueba}
+
+    Sea $S$ un estatuto verdadero. Si mostramos que $\neg S \implies falso$ es cierto, entonces es suficiente para mostrar que $S$ es, como dijimos en un principio, verdadero. \pause
+
+    \begin{theorem}
+        Sea $n$ un entero positivo. Si $n^2$ es par, entonces $n$ es par.
+    \end{theorem}
+
+    \begin{proof}
+        Por contradicción, asumimos que $n^2$ es par pero que $n$ es impar.
+        
+        Como $n$ es impar, sabemos del Teorema~\ref{th:02} que $n^2$ debe ser impar. Sin embargo, esto genera una contradicción, porque asumimos que $n^2$ es par.
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}{Contraejemplo}{Técnicas de Prueba}
+
+    Si nos dicen que algo es verdad, y encontramos algún caso en el que no lo sea, entonces es falso (que es básicamente lo mismo que hacemos en contradicción). \pause
+
+    $$\forall a \in \mathbb{R}, \forall b \in \mathbb{R} (a^2 = b^2 \implies a = b)$$ \pause
+
+    \bigskip
+
+    \begin{proof}
+        Sean $a = 1$ y $b = -1$. Entonces, $a^2 = 1$ y también $b^2 = 1$, sin embargo $a \neq b$. Por tanto, el estatuto inicial es falso.
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}{Inducción matemática I}{Técnicas de Prueba}
+
+    Para cada entero positivo $n \in \mathbb{N}$, sea $P(n)$ un estatuto matemático que depende de $n$.
+    Queremos probar que $P(n)$ es cierto para cualquier entero positivo $n$. Una prueba por \alert{inducción} se lleva a cabo entonces de la siguiente forma: \pause
+
+    \begin{enumerate}
+        \item Probamos que $P(1)$ es verdadero.\pause
+        \item Probamos ahora que para todo $n > 1$, si $P(n)$ es cierto, entonces $P(n+1)$ es también cierto \pause
+    \end{enumerate}
+
+    El primer paso se conoce como el \alert{caso base}, mientras que al paso dos se le llama \alert{paso de inducción}.
+    En el paso de inducción, escogemos un valor arbitrario para $n$, y asumimos que $P(n)$ es verdad (como nos sugieren). A esto se le llama \alert{la hipótesis de inducción}.
+\end{frame}
+
+\begin{frame}{Inducción matemática II}{Técnicas de Prueba}
+
+    \begin{theorem}
+        Para todos los enteros positivos $n$, $1 + 2 + 3 + \dots + n = \dfrac{n(n+1)}{2}$
+    \end{theorem}
+
+    \bigskip
+
+    Comenzamos con $n=1$. Si $n=1$ entonces tenemos $1 = \dfrac{1(1+1)}{2}$, lo cual es correcto.
+    
+    Para el paso de inducción, sea $n \geq 1$, y asumamos que el teorema es cierto para $n$.
+    Si es cierto para $n$, entonces debe ser cierto para $n+1$:
+
+    $${\color{blue} 1 + 2 + 3 + \dots + n} + (n+1) = \frac{(n+1)(n+2)}{2}$$
+    
+    Dado que el lado azul del igual mantiene la propiedad, entonces podemos reemplazarlo por $\frac{n(n+1)}{2}$.
+\end{frame}
+
+\begin{frame}{Inducción matemática II (cont.)}{Técnicas de Prueba}
+
+    $${\color{blue} 1 + 2 + 3 + \dots + n} + (n+1) = {\color{magenta} \frac{(n+1)(n+2)}{2}}$$
+
+        Si reemplazamos lo azul por la propiedad de $\frac{n(n+1)}{2}$, entonces
+        $$\frac{n(n+1)}{2} + (n+1) = \frac{n^2 + n}{2} + (n+1)$$
+        y con esto podemos expandir a
+        $$\frac{n^2 + 3n + 2}{2}$$
+        para luego factorizar como
+        $$\color{magenta} \frac{(n+1)(n+2)}{2}$$
+
+        que es la propiedad que estamos buscando $\quad \square$
+\end{frame}
+
+\section{Recursión}
+
+\begin{frame}{¿Por qué funciona la inducción matemática?}{Técnicas de Prueba}
+    
+    La inducción matemática \textit{sólo funciona} en los números naturales. \pause
+
+    \bigskip
+
+    Esto se debe a que $\mathbb{N}$ tiene una \alert{estructura ordenada} que puede ser simplificada en los dos pasos de la inducción: \pause
+    
+    \begin{itemize}
+        \item Existe un caso base (el 1) \pause
+        \item El siguiente número es \textit{obtenible} como el número \textit{actual} + 1 (sucesor) \pause
+    \end{itemize}
+
+    Y esto da como resultado que se le pueda aplicar \alert{recursión}.
+\end{frame}
+
+\begin{frame}{Recursión}
+    La \alert{recursión} es una propiedad de \textit{algunas} \textbf{estructuras matemáticas} las cuales pueden ser expresadas en la forma que revisamos (caso base + regla general). \pause
+
+    \bigskip
+
+    \begin{center}
+        ¿Qué funciones se te vienen a la mente que puedan ser expresadas en este formato?
+    \end{center}
+\end{frame}
+
+% \section*{Referencias}
+
+% \begin{frame}[t]{Referencias}
+    % \nocite{bibID01}
+    % \nocite{bibID02}
+
+    % \bibliographystyle{IEEE}
+    % \bibliography{biblio}
+% \end{frame}
+
+\end{document}
