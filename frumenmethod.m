@@ -1,4 +1,4 @@
-% Frumen Olivas frumen@tec.mx
+% Frumen Olivas mail@tec.mx
 
 clear; clc;
 %% Copa 1 para vino blanco
